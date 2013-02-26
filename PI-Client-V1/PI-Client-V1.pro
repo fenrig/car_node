@@ -5,7 +5,7 @@
 #-------------------------------------------------
 
 QT       += core
-
+QT += network
 QT       -= gui
 
 TARGET = PI-Client-V1
