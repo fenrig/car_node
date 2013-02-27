@@ -12,8 +12,9 @@ tcp_client::tcp_client(QObject *parent) : QObject(parent)
 
 void tcp_client::read_data(){
     //char read_buffer[56] = "";
-    char *read_buffer = (socket->read(56)).data();
-    printf("%s\n",read_buffer);
+    QByteArray read_buffer = (socket->read(56));
+    printf("%s\n",read_buffer.data());
+
 }
 
 void tcp_client::on_connected(){
@@ -25,8 +26,8 @@ void tcp_client::on_connected(){
     //----------
     printf("Connection established.\n");
     socket->setReadBufferSize(56);
-    char buffer[56];
     /*
+    char buffer[56];
     forever{
         printf(">> ");
         gets(buffer);
@@ -41,5 +42,6 @@ void tcp_client::on_connected(){
 
 void tcp_client::connectToServer(){
     printf("Connecting\n");
-    socket->connectToHost("fenrig-N73SV", 666);
+    //socket->connectToHost("fenrig-N73SV", 666);
+    socket->connectToHost("192.168.10.124", 666);
 }
