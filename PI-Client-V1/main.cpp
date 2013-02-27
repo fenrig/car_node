@@ -1,4 +1,5 @@
 #include <QCoreApplication>
+#include "tcp_client.h"
 
 /* Socket:
  *  http://www.youtube.com/watch?v=u5OdR46542M
@@ -14,6 +15,9 @@
 int main(int argc, char *argv[])
 {
     QCoreApplication a(argc, argv);
+
+    tcp_client c;
+    c.connectToServer();
 
     return a.exec();
 }
