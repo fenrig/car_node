@@ -11,12 +11,14 @@ class tcp_client : public QObject
 public:
     tcp_client(QObject *parent = 0);
     void connectToServer();
+    void write_data(QByteArray *buffer);
 signals:
 public slots:
     void on_connected();
     void read_data();
 private:
     QTcpSocket* socket;
+    QString UDP_Server_Discovery();
 };
 
 #endif // TCP_CLIENT_H
