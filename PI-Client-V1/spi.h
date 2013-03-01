@@ -6,6 +6,7 @@ class SPI
 public:
     SPI();
     void dumpstat(const char *name, int fd);
+    int setSPImode(void);
 };
 
 #endif // SPI_H
