@@ -56,21 +56,18 @@ void tcp_client::connectToServer(){
     //socket->connectToHost("fenrig-N73SV", 666);
     //socket->connectToHost("192.168.10.124", 666);
     socket->connectToHost(UDP_Server_Discovery(), 666);
-    printf("connect?\n");
 }
 
 QString tcp_client::UDP_Server_Discovery(){
     // Om ip adressen te ontdekken
-    QNetworkAddressEntry *inter = new QNetworkAddressEntry();
+    QNetworkAddressEntry inter;
     // sockets aanmaken en verbinden met enerzijds broadcast en anderzijds een luister poort
-    QUdpSocket *udpSocketSend = new QUdpSocket();
-    QUdpSocket *udpSocketGet = new QUdpSocket();
-    udpSocketSend->connectToHost(inter->broadcast(), 667);
+    QUdpSocket udpSocketSend;
+    QUdpSocket udpSocketGet;
+    udpSocketSend.connectToHost(inter.broadcast(), 667);
     // udpSocketGet->bind(inter->ip(),667);
     // udpSocketGet->bind(QHostAddress::Any,667)
-    // bind niet :/
-    if(udpSocketGet->bind(6666,QUdpSocket::ShareAddress)) printf("TRUE\n");
-    else printf("False\n");
+    udpSocketGet.bind(6666,QUdpSocket::ShareAddress);
     // Pakket verzenden
     QByteArray send_datagram = "DISCOVER-CAR-SERVER";
     // Optimalisatie voor in de loop
@@ -78,15 +75,13 @@ QString tcp_client::UDP_Server_Discovery(){
     QHostAddress server;
     quint16 serverPort;
     forever{
-        udpSocketSend->writeDatagram(send_datagram, QHostAddress::Broadcast, 667);
-        if(udpSocketGet->waitForReadyRead(30000)){
-            receive_datagram.resize(udpSocketGet->pendingDatagramSize());
-            udpSocketGet->readDatagram(receive_datagram.data(),receive_datagram.size(),&server,&serverPort);
-            printf("DATA: %s\n",receive_datagram.data());
-            if(QString::fromUtf8(receive_datagram.data()) == "DISCOVERED-CAR-SERVER"){
-                printf("HUH\n");
+        udpSocketSend.writeDatagram(send_datagram, QHostAddress::Broadcast, 667);
+        if(udpSocketGet.waitForReadyRead(3000)){
+            receive_datagram.resize(udpSocketGet.pendingDatagramSize());
+            udpSocketGet.readDatagram(receive_datagram.data(),receive_datagram.size(),&server,&serverPort);
+            // printf("DATA: %s\n",receive_datagram.data());
+            if(QString::fromUtf8(receive_datagram.data()) == "DISCOVERED-CAR-SERVER")
                 return server.toString();
-            }
         }else printf("TimeOut\n");
     }
     return "";
