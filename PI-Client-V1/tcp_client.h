@@ -14,8 +14,10 @@ public:
     void write_data(QByteArray *buffer);
 signals:
 public slots:
+private slots:
     void on_connected();
     void read_data();
+    void on_disconnected();
 private:
     QTcpSocket* socket;
     QString UDP_Server_Discovery();

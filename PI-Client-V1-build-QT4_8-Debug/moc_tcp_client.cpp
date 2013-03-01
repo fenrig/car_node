@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'tcp_client.h'
 **
-** Created: Fri Mar 1 01:48:32 2013
+** Created: Fri Mar 1 11:04:44 2013
 **      by: The Qt Meta Object Compiler version 63 (Qt 4.8.4)
 **
 ** WARNING! All changes made in this file will be lost!
@@ -23,7 +23,7 @@ static const uint qt_meta_data_tcp_client[] = {
        6,       // revision
        0,       // classname
        0,    0, // classinfo
-       2,   14, // methods
+       3,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -31,14 +31,16 @@ static const uint qt_meta_data_tcp_client[] = {
        0,       // signalCount
 
  // slots: signature, parameters, type, tag, flags
-      12,   11,   11,   11, 0x0a,
-      27,   11,   11,   11, 0x0a,
+      12,   11,   11,   11, 0x08,
+      27,   11,   11,   11, 0x08,
+      39,   11,   11,   11, 0x08,
 
        0        // eod
 };
 
 static const char qt_meta_stringdata_tcp_client[] = {
     "tcp_client\0\0on_connected()\0read_data()\0"
+    "on_disconnected()\0"
 };
 
 void tcp_client::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
@@ -49,6 +51,7 @@ void tcp_client::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         switch (_id) {
         case 0: _t->on_connected(); break;
         case 1: _t->read_data(); break;
+        case 2: _t->on_disconnected(); break;
         default: ;
         }
     }
@@ -87,9 +90,9 @@ int tcp_client::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 2)
+        if (_id < 3)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 2;
+        _id -= 3;
     }
     return _id;
 }

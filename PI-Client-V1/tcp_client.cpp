@@ -7,11 +7,14 @@
 #include <QNetworkInterface>
 #include <QNetworkAddressEntry>
 
+#define udpgetport 6666
+
 tcp_client::tcp_client(QObject *parent) : QObject(parent)
 {
     socket = new QTcpSocket(this);
     connect(socket, SIGNAL(connected()), this, SLOT(on_connected()));
     connect(socket, SIGNAL(readyRead()), this, SLOT(read_data()));
+    connect(socket,SIGNAL(disconnected()), this, SLOT(on_disconnected()));
 }
 
 void tcp_client::read_data(){
@@ -30,12 +33,12 @@ void tcp_client::write_data(QByteArray *buffer){
 
 void tcp_client::on_connected(){
     //----------
-    printf("Auth\n");
+    printf("[INFO] Authenticating to CAR-SERVER\n");
     char auth_buffer[13] = "car_v1      ";
     socket->write(auth_buffer);
     socket->flush();
     //----------
-    printf("Connection established.\n");
+    printf("[INFO] Authentication passed & Connection established\n");
     socket->setReadBufferSize(56);
     /*
     char buffer[56];
@@ -51,14 +54,20 @@ void tcp_client::on_connected(){
     */
 }
 
+void tcp_client::on_disconnected(){
+    printf("[ERROR] Disconnected with TCP Server\n");
+    connectToServer();
+}
+
 void tcp_client::connectToServer(){
-    printf("Connecting\n");
+    printf("[INFO] Initiating connection procedure\n");
     //socket->connectToHost("fenrig-N73SV", 666);
     //socket->connectToHost("192.168.10.124", 666);
     socket->connectToHost(UDP_Server_Discovery(), 666);
 }
 
 QString tcp_client::UDP_Server_Discovery(){
+    printf("[INFO] Initiating UDP Discover\n");
     // Om ip adressen te ontdekken
     QNetworkAddressEntry inter;
     // sockets aanmaken en verbinden met enerzijds broadcast en anderzijds een luister poort
@@ -67,7 +76,9 @@ QString tcp_client::UDP_Server_Discovery(){
     udpSocketSend.connectToHost(inter.broadcast(), 667);
     // udpSocketGet->bind(inter->ip(),667);
     // udpSocketGet->bind(QHostAddress::Any,667)
-    udpSocketGet.bind(6666,QUdpSocket::ShareAddress);
+    if(udpSocketGet.bind(udpgetport,QUdpSocket::ShareAddress))
+        printf("[INFO] Could properly bind udpSocketget to %d\n",udpgetport);
+    else printf("[INFO] Couldn't properly bind udpSocketget to %d\n",udpgetport);
     // Pakket verzenden
     QByteArray send_datagram = "DISCOVER-CAR-SERVER";
     // Optimalisatie voor in de loop
@@ -79,10 +90,11 @@ QString tcp_client::UDP_Server_Discovery(){
         if(udpSocketGet.waitForReadyRead(3000)){
             receive_datagram.resize(udpSocketGet.pendingDatagramSize());
             udpSocketGet.readDatagram(receive_datagram.data(),receive_datagram.size(),&server,&serverPort);
-            // printf("DATA: %s\n",receive_datagram.data());
+            printf("[INFO] udpSocketGet DATA: \'%s\'\n",receive_datagram.data());
             if(QString::fromUtf8(receive_datagram.data()) == "DISCOVERED-CAR-SERVER")
+                printf("[INFO] Found CAR-SERVER on %s\n",server.toString().toUtf8().constData());
                 return server.toString();
-        }else printf("TimeOut\n");
+        }else printf("[INFO] UDP Discover TimeOut\n");
     }
     return "";
 }
