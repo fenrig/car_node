@@ -16,7 +16,9 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp \
-    tcp_client.cpp
+    tcp_client.cpp \
+    spi.cpp
 
 HEADERS += \
-    tcp_client.h
+    tcp_client.h \
+    spi.h
