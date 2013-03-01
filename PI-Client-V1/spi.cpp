@@ -14,6 +14,7 @@
 #include <linux/spi/spidev.h>
 
 // https://www.kernel.org/doc/Documentation/spi/spidev
+// https://www.kernel.org/doc/Documentation/spi/spidev_fdx.c
 
 SPI::SPI(){
     int spidev = open("/dev/spidev0.1", O_RDWR);
