@@ -17,11 +17,11 @@
 #include <linux/spi/spidev.h>
 
 // --------------
-static char       *spiDev0 = "/dev/spidev0.0" ;
-static char       *spiDev1 = "/dev/spidev0.1" ;
-static __u8     spiMode   = 0 ;
-static __u16     spiBPW    = 8 ;
-static __u16    spiDelay  = 0;
+const static char       *spiDev0 = "/dev/spidev0.0" ;
+const static char       *spiDev1 = "/dev/spidev0.1" ;
+static __u8       spiMode   = 0 ;
+static __u16      spiBPW    = 8 ;
+static __u16      spiDelay  = 0;
 
 static __u32    spiSpeeds [2] ;
 static int         spiFds [2] ;
@@ -32,32 +32,34 @@ static int         spiFds [2] ;
 // https://github.com/WiringPi/WiringPi/blob/master/wiringPi/wiringPiSPI.c
 
 SPI::SPI(){
-    dumpstat("/dev/spidev0.1");
+    dumpstat();
     setupSPI();
-    dumpstat("/dev/spidev0.1");
+    dumpstat();
 }
 
-void SPI::dumpstat(const char *name){
+void SPI::dumpstat(int channel){
+    channel &= 1;
 
-    //channel &= 1;
-    //fd = dev;
+    const char *name = (channel == 0 ? spiDev0 : spiDev1);
+
+    int localdev = open(name, O_RDWR);
 
     __u8	mode, lsb, bits;
     __u32	speed;
 
-    if (ioctl(dev, SPI_IOC_RD_MODE, &mode) < 0) {
+    if (ioctl(localdev, SPI_IOC_RD_MODE, &mode) < 0) {
         perror("SPI rd_mode");
         return;
     }
-    if (ioctl(dev, SPI_IOC_RD_LSB_FIRST, &lsb) < 0) {
+    if (ioctl(localdev, SPI_IOC_RD_LSB_FIRST, &lsb) < 0) {
         perror("SPI rd_lsb_fist");
         return;
     }
-    if (ioctl(dev, SPI_IOC_RD_BITS_PER_WORD, &bits) < 0) {
+    if (ioctl(localdev, SPI_IOC_RD_BITS_PER_WORD, &bits) < 0) {
         perror("SPI bits_per_word");
         return;
     }
-    if (ioctl(dev, SPI_IOC_RD_MAX_SPEED_HZ, &speed) < 0) {
+    if (ioctl(localdev, SPI_IOC_RD_MAX_SPEED_HZ, &speed) < 0) {
         perror("SPI max_speed_hz");
         return;
     }

@@ -8,7 +8,7 @@ class SPI
     int dev;
 public:
     SPI();
-    void dumpstat(const char *name);
+    void dumpstat(int channel = 0);
     int setSPImode(void);
     void setupSPI(int channel = 0, int speed = 500000);
 };
