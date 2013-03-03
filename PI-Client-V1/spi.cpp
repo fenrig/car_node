@@ -93,11 +93,17 @@ void SPI::setupSPI(int channel, int speed){
 
     spiSpeeds[channel] = speed;
 
-    ioctl(dev, SPI_IOC_WR_MODE, &spiMode);
-    ioctl(dev, SPI_IOC_RD_MODE, &spiMode);
-    ioctl(dev, SPI_IOC_WR_BITS_PER_WORD, &spiBPW);
-    ioctl(dev, SPI_IOC_RD_BITS_PER_WORD, &spiBPW);
-    ioctl(dev, SPI_IOC_WR_MAX_SPEED_HZ, &speed);
-    ioctl(dev, SPI_IOC_RD_MAX_SPEED_HZ, &speed);
+    if((ioctl(dev, SPI_IOC_WR_MODE, &spiMode)) < 0)
+        printf("Failed setting spiMode (WR)\n");
+    if((ioctl(dev, SPI_IOC_RD_MODE, &spiMode)) < 0)
+        printf("Failed setting spiMode (RD)\n");
+    if((ioctl(dev, SPI_IOC_WR_BITS_PER_WORD, &spiBPW)) < 0)
+        printf("Failed setting Bits Per Word (WR)\n");
+    if((ioctl(dev, SPI_IOC_RD_BITS_PER_WORD, &spiBPW)) < 0)
+        printf("Failed setting Bits Per Word (RD)\n");
+    if((ioctl(dev, SPI_IOC_WR_MAX_SPEED_HZ, &speed)) < 0)
+        printf("Failed setting SPEED (WR)\n");
+    if((ioctl(dev, SPI_IOC_RD_MAX_SPEED_HZ, &speed)) < 0)
+        printf("Failed setting SPEED (RD)\n");
 }
 
