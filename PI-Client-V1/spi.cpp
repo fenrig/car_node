@@ -33,7 +33,7 @@ static int         spiFds [2] ;
 
 SPI::SPI(){
     dumpstat();
-    setupSPI();
+    setupSPI(0,25000);
     dumpstat();
 }
 
