@@ -22,7 +22,7 @@ int main(int argc, char *argv[])
     //c.connectToServer();
 
     SPI s;
-    unsigned char message[] = "abcd";
+    unsigned char message[] = "zbcd";
     forever{
         s.send(message);
     }
