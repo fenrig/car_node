@@ -33,8 +33,24 @@ static int         spiFds [2] ;
 
 SPI::SPI(){
     dumpstat();
-    setupSPI(0,25000);
+    setupSPI();
     dumpstat();
+}
+
+void SPI::send(__u8 msg[],int channel){
+    tx = msg;
+    __u8 quirk[sizeof(tx)];
+    rx = quirk;
+    struct spi_ioc_transfer tr;
+
+    tr.tx_buf = (unsigned long)tx;
+    tr.rx_buf = (unsigned long)rx;
+    tr.len = sizeof(tx);
+    tr.delay_usecs = spiDelay;
+    tr.speed_hz = spiSpeeds[channel];
+    tr.bits_per_word = spiBPW;
+    if((ioctl(dev, SPI_IOC_MESSAGE(1), &tr)) < 1)
+        printf("Failed sending\n");
 }
 
 void SPI::dumpstat(int channel){
@@ -84,9 +100,6 @@ int SPI::setSPImode(void){
 }
 
 void SPI::setupSPI(int channel, int speed){
-    //
-
-    //
     channel &= 1;
 
     dev = open(channel == 0 ? spiDev0 : spiDev1, O_RDWR);
