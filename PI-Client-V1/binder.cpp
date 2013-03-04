@@ -11,11 +11,11 @@ binder::binder(tcp_client *tcp_x, SPI *spi_x, QObject *parent) :
 
 void binder::parseTCPmsg(QString msg){
     printf("[CONNECT] Data: %s\n",msg.toUtf8().constData());
-    if(msg == "forward"){
+    if(msg.toUtf8().constData() == "forward"){
         spi->send((unsigned char*)"f");
         return;
      }
-    if(msg == "backward"){
+    if(msg.toUtf8().constData() == "backward"){
         spi->send((unsigned char*)"b");
         return;
      }
