@@ -3,6 +3,7 @@
 
 #include <QObject>
 //#include <QTcpSocket>
+
 class QTcpSocket;
 
 class tcp_client : public QObject
@@ -13,6 +14,7 @@ public:
     void connectToServer();
     void write_data(QByteArray *buffer);
 signals:
+    void readyRead(QString msg);
 public slots:
 private slots:
     void on_connected();

@@ -1,6 +1,7 @@
 #include <QCoreApplication>
 #include "tcp_client.h"
 #include "spi.h"
+#include "binder.h"
 
 #include <QtTest/QTest>
 
@@ -20,15 +21,19 @@ int main(int argc, char *argv[])
 {
     QCoreApplication a(argc, argv);
 
-    //tcp_client c;
-    //c.connectToServer();
-
+    tcp_client c;
+    c.connectToServer();
     SPI s;
+
+    binder b(&c,&s);
+
+    /*
     unsigned char message[] = "zbcd";
     forever{
         s.send(message);
         QTest::qSleep(50);
     }
+    */
 
     return a.exec();
 }

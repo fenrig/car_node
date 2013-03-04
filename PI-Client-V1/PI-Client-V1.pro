@@ -18,8 +18,10 @@ TEMPLATE = app
 
 SOURCES += main.cpp \
     tcp_client.cpp \
-    spi.cpp
+    spi.cpp \
+    binder.cpp
 
 HEADERS += \
     tcp_client.h \
-    spi.h
+    spi.h \
+    binder.h
