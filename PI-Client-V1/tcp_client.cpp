@@ -20,7 +20,7 @@ tcp_client::tcp_client(QObject *parent) : QObject(parent)
 void tcp_client::read_data(){
     //char read_buffer[56] = "";
     QByteArray read_buffer = (socket->read(56));
-    printf("%s\n",read_buffer.data());
+    printf("[INFO] Received: %s\n",read_buffer.data());
     emit readyRead(read_buffer.data());
 }
 
