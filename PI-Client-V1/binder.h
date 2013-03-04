@@ -8,11 +8,12 @@ class SPI;
 
 class binder : public QObject
 {
-private:
+    Q_OBJECT
+//private:
     tcp_client *tcp;
     SPI *spi;
 public:
-    binder(tcp_client *tcp_x, SPI *spi_x);
+    binder(tcp_client *tcp_x, SPI *spi_x, QObject *parent = 0);
 signals:
 public slots:
     void parseTCPmsg(QString msg);
