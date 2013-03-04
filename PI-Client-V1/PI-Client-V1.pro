@@ -7,6 +7,7 @@
 QT       += core
 QT += network
 QT       -= gui
+QT += testlib
 
 TARGET = PI-Client-V1
 CONFIG   += console

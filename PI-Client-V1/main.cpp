@@ -2,6 +2,8 @@
 #include "tcp_client.h"
 #include "spi.h"
 
+#include <QtTest/QTest>
+
 
 /* Socket:
  *  http://www.youtube.com/watch?v=u5OdR46542M
@@ -25,6 +27,7 @@ int main(int argc, char *argv[])
     unsigned char message[] = "zbcd";
     forever{
         s.send(message);
+        QTest::qSleep(50);
     }
 
     return a.exec();
