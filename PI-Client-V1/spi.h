@@ -12,7 +12,7 @@ public:
     SPI();
     void dumpstat(int channel = 0);
     int setSPImode(void);
-    void setupSPI(int channel = 0, int speed = 500000);
+    void setupSPI(int channel = 0, int speed = 25000);
     void send(__u8 msg[],int channel = 0);
 };
 
