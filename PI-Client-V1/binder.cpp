@@ -24,8 +24,12 @@ void binder::parseTCPmsg(QString msg){
     unsigned char value = instructions[msg];
     if(value == (unsigned char)(0))
         printf("[ERROR] Could not parse TCP message: '%s'\n",msg.toUtf8().constData());
-    else
-        spi->send(&value);
+    else{
+        unsigned char sendvalue[2];
+        sendvalue[0] = value;
+        sendvalue[1] = (unsigned char)255;
+        spi->send(sendvalue);
+    }
     /*
     if(msg == QString("forward")){
         spi->send((unsigned char*)1);
