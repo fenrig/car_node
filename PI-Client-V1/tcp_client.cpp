@@ -21,7 +21,7 @@ void tcp_client::read_data(){
     //char read_buffer[56] = "";
     QByteArray read_buffer = (socket->read(56));
     printf("[INFO] Received: %s\n",read_buffer.data());
-    emit readyRead(read_buffer);
+    emit readyRead((QString(read_buffer).trimmed()));
 }
 
 void tcp_client::write_data(QByteArray *buffer){
