@@ -2,6 +2,7 @@
 #include <tcp_client.h>
 #include <spi.h>
 #include <cstdio>
+#include <QMap>
 
 binder::binder(tcp_client *tcp_x, SPI *spi_x, QObject *parent) :
     QObject(parent), tcp(tcp_x), spi(spi_x)
@@ -21,10 +22,10 @@ void binder::parseTCPmsg(QString msg){
     //QByteArray iArray = msg.toAscii().toHex();
     //printf("HEX: '%s'\n",iArray.data());
     unsigned char value = instructions[msg];
-    if(value == unsigned char(0))
+    if(value == (unsigned char)(0))
         printf("[ERROR] Could not parse TCP message: '%s'\n",msg.toUtf8().constData());
     else
-        spi->send(value);
+        spi->send(&value);
     /*
     if(msg == QString("forward")){
         spi->send((unsigned char*)1);

@@ -2,6 +2,7 @@
 #define BINDER_H
 
 #include <QObject>
+#include <QMap>
 
 class tcp_client;
 class SPI;

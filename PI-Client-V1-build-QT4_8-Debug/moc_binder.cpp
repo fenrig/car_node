@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'binder.h'
 **
-** Created: Mon Mar 4 21:25:00 2013
+** Created: Wed Mar 6 11:00:51 2013
 **      by: The Qt Meta Object Compiler version 63 (Qt 4.8.4)
 **
 ** WARNING! All changes made in this file will be lost!
