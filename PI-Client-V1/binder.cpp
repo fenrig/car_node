@@ -11,7 +11,8 @@ binder::binder(tcp_client *tcp_x, SPI *spi_x, QObject *parent) :
 
 void binder::parseTCPmsg(QString msg){
     printf("[CONNECT] Data: '%s'\n",msg.toUtf8().constData());
-    printf("HEX: '%s'\n",QByteArray(msg).toHex());
+    QByteArray iArray = msg.toAscii().toHex();
+    printf("HEX: '%s'\n",iArray.data());
     if(msg == QString("forward")){
         spi->send((unsigned char*)"f");
         return;
