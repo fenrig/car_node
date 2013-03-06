@@ -12,6 +12,7 @@ class binder : public QObject
 //private:
     tcp_client *tcp;
     SPI *spi;
+    QMap<QString, unsigned char> instructions;
 public:
     binder(tcp_client *tcp_x, SPI *spi_x, QObject *parent = 0);
 signals:
