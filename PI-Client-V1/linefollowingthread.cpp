@@ -10,5 +10,5 @@ linefollowingthread::linefollowingthread(SPI* x, QObject *parent) :
 
 void linefollowingthread::run(){
     FindLine fl;
-    //s->send(fl.FindOffset(fl.WhiteFilter()));
+    //s->send(fl.FindOffset(),0);
 }

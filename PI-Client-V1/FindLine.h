@@ -20,8 +20,9 @@ class FindLine : public QObject
 {
 public:
     explicit FindLine(QObject *parent = 0);
+    Mat ReadImage(void);
     Mat WhiteFilter(const Mat& src);
-    offsets FindOffset(Mat& src);
+    offsets FindOffset(void);
 };
 
 #endif // FINDLINE_H

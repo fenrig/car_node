@@ -22,6 +22,18 @@ FindLine::FindLine(QObject *parent) :
 {
 }
 
+Mat FindLine::ReadImage()
+{
+    QString Path;
+    //Path = "/home/dries/Afbeeldingen/20130311_184718 (another copy).jpg"; //path where image is located
+    //Path = "/home/dries/Afbeeldingen/20130311_184718 (copy).jpg"; //path where image is located
+    Path = "/home/dries/Afbeeldingen/20130311_184718.jpg"; //path where image is located
+    QByteArray ba = Path.toLocal8Bit();
+    const char *PathChar = ba.data();
+    Mat img = imread(PathChar); //read image+
+    return img;
+}
+
 Mat FindLine::WhiteFilter(const Mat& src)
 {
     assert(src.type() == CV_8UC3);
@@ -32,12 +44,19 @@ Mat FindLine::WhiteFilter(const Mat& src)
     inRange(src,Scalar(0,0,90), Scalar(40,40,255),whiteOnly);
     return whiteOnly;
 }
-offsets FindLine::FindOffset(Mat& img)
+offsets FindLine::FindOffset()
 {
     offsets offset;
+    Mat img;
+    //read img from path
+    img = FindLine::ReadImage();
     //crop image
     cv::Rect myROI(0, 230, 320, 10); //start position x:0 y:230 || size x:320 y:10
     img = img(myROI);
+    //filteren op witte kleur
+    img = FindLine::WhiteFilter(img);
+    imshow("hallo",img);
+
 
     //find offsets
     uint8_t* pixelPtr = (uint8_t*)img.data;

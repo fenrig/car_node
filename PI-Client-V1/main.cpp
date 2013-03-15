@@ -23,14 +23,14 @@ int main(int argc, char *argv[])
 {
     QCoreApplication a(argc, argv);
 
-    tcp_client c;
-    c.connectToServer();
+  //  tcp_client c;
+  //  c.connectToServer();
     SPI s;
 
     linefollowingthread lft(&s);
     lft.run();
 
-    binder b(&c,&s);
+  //  binder b(&c,&s);
 
     /*
     unsigned char message[] = "zbcd";
