@@ -37,15 +37,15 @@ SPI::SPI(){
     dumpstat();
 }
 
-void SPI::send(__u8 msg[],int channel){
+void SPI::send(__u8 msg[], int size, int channel){
     tx = msg;
-    __u8 quirk[sizeof(tx)];
+    __u8 quirk[size];
     rx = quirk;
     struct spi_ioc_transfer tr;
 
     tr.tx_buf = (unsigned long)tx;
     tr.rx_buf = (unsigned long)rx;
-    tr.len = sizeof(tx);
+    tr.len = sizeof(size);
     tr.delay_usecs = spiDelay;
     tr.speed_hz = spiSpeeds[channel];
     tr.bits_per_word = spiBPW;

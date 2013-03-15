@@ -55,7 +55,7 @@ offsets FindLine::FindOffset()
     img = img(myROI);
     //filteren op witte kleur
     img = FindLine::WhiteFilter(img);
-    imshow("hallo",img);
+    //imshow("hallo",img);
 
 
     //find offsets
