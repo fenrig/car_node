@@ -2,9 +2,11 @@
 #include "tcp_client.h"
 #include "spi.h"
 #include "binder.h"
+#include "linefollowingthread.h"
 
 #include <QtTest/QTest>
 
+//#include <QThread>
 
 /* Socket:
  *  http://www.youtube.com/watch?v=u5OdR46542M
@@ -24,6 +26,9 @@ int main(int argc, char *argv[])
     tcp_client c;
     c.connectToServer();
     SPI s;
+
+    linefollowingthread lft(&s);
+    lft.run();
 
     binder b(&c,&s);
 
