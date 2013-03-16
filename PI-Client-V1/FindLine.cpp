@@ -60,10 +60,10 @@ offsets FindLine::FindOffset()
     img = FindLine::ReadImage();
     //crop image
     printf("Test before myROI \n");
-    //cv::Rect myROI(0, 230, 320, 10); //start position x:0 y:230 || size x:320 y:10
-    //img = img(myROI);
+    cv::Rect myROI(0, 230, 320, 10); //start position x:0 y:230 || size x:320 y:10
+    img = img(myROI);
     //filteren op witte kleur
-    //img = FindLine::WhiteFilter(img);
+    img = FindLine::WhiteFilter(img);
     //imshow("hallo",img);
 
 
@@ -183,7 +183,7 @@ offsets FindLine::FindOffset()
             }
         }
     }
-    imshow("cropped",img);
+    //imshow("cropped",img);
 
     return offset;
 }
