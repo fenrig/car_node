@@ -59,6 +59,7 @@ offsets FindLine::FindOffset()
     //read img from path
     img = FindLine::ReadImage();
     //crop image
+    printf("Test before myROI \n");
     cv::Rect myROI(0, 230, 320, 10); //start position x:0 y:230 || size x:320 y:10
     img = img(myROI);
     //filteren op witte kleur
