@@ -62,13 +62,14 @@ offsets FindLine::FindOffset()
     {
         //crop image
         printf("Test before myROI \n");
-        cv::Rect myROI(0, 230, 320, 10); //start position x:0 y:230 || size x:320 y:10
+        //cv::Rect myROI(0, 230, 320, 10); //start position x:0 y:230 || size x:320 y:10
         //printf("Test after myROI \n");
-        img = img(myROI);
+        //img = img(myROI);
         //filteren op witte kleur
+        printf("Test1\n");
         img = FindLine::WhiteFilter(img);
         //imshow("hallo",img);
-
+        printf("Test2\n");
 
         //find offsets
         uint8_t* pixelPtr = (uint8_t*)img.data;
