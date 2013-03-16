@@ -34,7 +34,7 @@ Mat FindLine::ReadImage()
      */
     //Path = "~/Lines/20130311_184718 (another copy).jpg";
     //Path = "~/Lines/20130311_184718 (copy).jpg";
-    Path = "~/Lines/20130311_184718.jpg";
+    Path = "/root/Lines/20130311_184718.jpg";
 
     QByteArray ba = Path.toLocal8Bit();
     const char *PathChar = ba.data();
