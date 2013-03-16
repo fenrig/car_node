@@ -27,7 +27,15 @@ Mat FindLine::ReadImage()
     QString Path;
     //Path = "/home/dries/Afbeeldingen/20130311_184718 (another copy).jpg"; //path where image is located
     //Path = "/home/dries/Afbeeldingen/20130311_184718 (copy).jpg"; //path where image is located
-    Path = "/home/dries/Afbeeldingen/20130311_184718.jpg"; //path where image is located
+    //Path = "/home/dries/Afbeeldingen/Lines/20130311_184718.jpg"; //path where image is located
+    /*
+     * Raspberry PI Dries
+     * Location where the images are
+     */
+    //Path = "~/Lines/20130311_184718 (another copy).jpg";
+    //Path = "~/Lines/20130311_184718 (copy).jpg";
+    Path = "~/Lines/20130311_184718.jpg";
+
     QByteArray ba = Path.toLocal8Bit();
     const char *PathChar = ba.data();
     Mat img = imread(PathChar); //read image+
