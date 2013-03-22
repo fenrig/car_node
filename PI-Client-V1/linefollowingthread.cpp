@@ -16,6 +16,13 @@ void linefollowingthread::run(){
     __u8 msg[size];
     msg[0]= os.right;
     msg[1]=os.left;
-    qDebug() << os.right << ":" << os.left;
+    qDebug() << os.left << ":" << os.right;
     s->send(msg);
+    /*
+    forever{
+        s->send(msg);
+        QTest::qSleep(50);
+        qDebug() << "send";
+    }
+    */
 }

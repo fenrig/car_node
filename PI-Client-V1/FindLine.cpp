@@ -27,14 +27,14 @@ Mat FindLine::ReadImage()
     QString Path;
     //Path = "/home/dries/Afbeeldingen/20130311_184718 (another copy).jpg"; //path where image is located
     //Path = "/home/dries/Afbeeldingen/20130311_184718 (copy).jpg"; //path where image is located
-    //Path = "/home/dries/Afbeeldingen/Lines/20130311_184718.jpg"; //path where image is located
+    Path = "/home/dries/Afbeeldingen/Lines/20130311_184718.jpg"; //path where image is located
     /*
      * Raspberry PI Dries
      * Location where the images are
      */
-    //Path = "~/Lines/20130311_184718 (another copy).jpg";
-    //Path = "~/Lines/20130311_184718 (copy).jpg";
-    Path = "/root/Lines/20130311_184718.jpg";
+    //Path = "/root/Lines/20130311_184718 (another copy).jpg";
+    //Path = "/root/Lines/20130311_184718 (copy).jpg";
+    //Path = "/root/Lines/20130311_184718.jpg";
 
     QByteArray ba = Path.toLocal8Bit();
     const char *PathChar = ba.data();
@@ -74,12 +74,12 @@ offsets FindLine::FindOffset()
         //find offsets
         uint8_t* pixelPtr = (uint8_t*)img.data;
         int cn = img.channels();
-        int whitePX,blackPX,i,j,x,counter=0;
+        int whitePX,whitePX2,i,j,x,counter=0;
         int roadwith = 220;
         int counterL=0;
         for(i=0;i<img.rows;i++)
         {
-            if(counter<5)
+            if(counter<5) //amount of tries to find the left road
             {
                 for(j=0;j<img.cols/2; j+= cn)
                 {
@@ -100,7 +100,7 @@ offsets FindLine::FindOffset()
                             if(pixelPtr[i*img.cols*cn + (j+roadwith)*cn + 0]==255 && pixelPtr[i*img.cols*cn + (j+roadwith)*cn + 1]==255 && pixelPtr[i*img.cols*cn + (j+roadwith)*cn + 2]==255)
                             {   //two white tracks?
                                 qDebug() << "TEST";
-                                for(x=0;x<10;x++)
+                                for(x=0;x<10;x++) //check the next 10 pxs to find the other side
                                 {
                                     Scalar_<uint8_t> bgrPixelRight;
                                     int position;
@@ -110,24 +110,24 @@ offsets FindLine::FindOffset()
                                     bgrPixelRight.val[2] = pixelPtr[i*img.cols*cn + (position)*cn + 2];
                                     if(bgrPixelRight.val[0]==255 && bgrPixelRight.val[1]==255 && bgrPixelRight[2]==255)
                                     {
-                                       blackPX=blackPX+1;
+                                       whitePX2=whitePX2+1;
                                     }
                                     else
                                     {
-                                        blackPX=0;
+                                        whitePX2=0;
                                     }
                                 }
-                                if(blackPX==10)
+                                if(whitePX2==10)
                                 {
                                     //return offsets
                                     qDebug()<< "Found Tracks!";
-                                    offset.left = j; //j is inside coord from the left track
-                                    offset.right= j+roadwith-160; //j+210 is the inside coord from the left track
+                                    offset.left = 160-j; //160= mid of the picture , j = position of the track
+                                    offset.right= j+roadwith-160; //j+roadwith = position of the track , 160=mid of the picture
                                     return offset;
                                 }
                                 else
                                 {
-                                    blackPX=0;
+                                    whitePX2=0;
                                 }
                             }
                             else
@@ -192,5 +192,7 @@ offsets FindLine::FindOffset()
     {
         printf("Invalid image! \n");
     }
+    offset.left = 220;
+    offset.right = 220;
     return offset;
 }
