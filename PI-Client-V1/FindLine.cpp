@@ -61,18 +61,22 @@ Mat FindLine::ReadImage(int teller)
     if(teller==1)
     {
        Path = "/root/Lines/1.jpg"; //path where image is located
+       qDebug() << "Teller:" << teller;
     }
     if(teller==2)
     {
         Path = "/root/Lines/2.jpg"; //path where image is located
+        qDebug() << "Teller:" << teller;
     }
     if(teller==3)
     {
         Path = "/root/Lines/3.jpg"; //path where image is located
+        qDebug() << "Teller:" << teller;
     }
     if(teller==4)
     {
         Path = "/root/Lines/stop.jpg"; //path where image is located
+        qDebug() << "Teller:" << teller;
     }
     QByteArray ba = Path.toLocal8Bit();
     const char *PathChar = ba.data();
