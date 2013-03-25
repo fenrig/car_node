@@ -26,10 +26,11 @@ int main(int argc, char *argv[])
   //  tcp_client c;
   //  c.connectToServer();
     SPI s;
-
+    for(int i=0;i<4;i++)
+    {
     linefollowingthread lft(&s);
     lft.run();
-
+    }
   //  binder b(&c,&s);
 
     /*

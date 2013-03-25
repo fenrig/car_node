@@ -17,17 +17,40 @@
 #include <math.h>
 
 using namespace cv;
+int teller;
+
 FindLine::FindLine(QObject *parent) :
     QObject(parent)
 {
 }
 
-Mat FindLine::ReadImage()
+Mat FindLine::ReadImage(int teller)
 {
     QString Path;
+    /*
+     *Test code
+     */
+    /*
+    if(teller==1)
+    {
+       Path = "/home/dries/Afbeeldingen/Lines/1.jpg"; //path where image is located
+    }
+    if(teller==2)
+    {
+        Path = "/home/dries/Afbeeldingen/Lines/2.jpg"; //path where image is located
+    }
+    if(teller==3)
+    {
+        Path = "/home/dries/Afbeeldingen/Lines/3.jpg"; //path where image is located
+    }
+    if(teller==4)
+    {
+        Path = "/home/dries/Afbeeldingen/Lines/stop.jpg"; //path where image is located
+    }
+    */
     //Path = "/home/dries/Afbeeldingen/20130311_184718 (another copy).jpg"; //path where image is located
     //Path = "/home/dries/Afbeeldingen/20130311_184718 (copy).jpg"; //path where image is located
-    Path = "/home/dries/Afbeeldingen/Lines/20130311_184718.jpg"; //path where image is located
+    //Path = "/home/dries/Afbeeldingen/Lines/20130311_184718.jpg"; //path where image is located
     /*
      * Raspberry PI Dries
      * Location where the images are
@@ -35,7 +58,22 @@ Mat FindLine::ReadImage()
     //Path = "/root/Lines/20130311_184718 (another copy).jpg";
     //Path = "/root/Lines/20130311_184718 (copy).jpg";
     //Path = "/root/Lines/20130311_184718.jpg";
-
+    if(teller==1)
+    {
+       Path = "/root/Lines/1.jpg"; //path where image is located
+    }
+    if(teller==2)
+    {
+        Path = "/root/Lines/2.jpg"; //path where image is located
+    }
+    if(teller==3)
+    {
+        Path = "/root/Lines/3.jpg"; //path where image is located
+    }
+    if(teller==4)
+    {
+        Path = "/root/Lines/stop.jpg"; //path where image is located
+    }
     QByteArray ba = Path.toLocal8Bit();
     const char *PathChar = ba.data();
     Mat img = imread(PathChar); //read image+
@@ -57,7 +95,8 @@ offsets FindLine::FindOffset()
     offsets offset;
     Mat img;
     //read img from path
-    img = FindLine::ReadImage();
+    teller=teller+1;
+    img = FindLine::ReadImage(teller);
     if(img.data)
     {
         //crop image
