@@ -5,7 +5,7 @@
 #include "linefollowingthread.h"
 
 #include <QtTest/QTest>
-
+#include <QDebug>
 //#include <QThread>
 
 /* Socket:
@@ -28,8 +28,10 @@ int main(int argc, char *argv[])
     SPI s;
     for(int i=0;i<4;i++)
     {
+    qDebug() << "==" << i << "==";
     linefollowingthread lft(&s);
     lft.run();
+    QTest::qSleep(200);
     }
   //  binder b(&c,&s);
 

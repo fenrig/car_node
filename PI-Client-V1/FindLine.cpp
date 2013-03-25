@@ -100,15 +100,11 @@ offsets FindLine::FindOffset()
     if(img.data)
     {
         //crop image
-        printf("Test before myROI \n");
         cv::Rect myROI(0, 230, 320, 10); //start position x:0 y:230 || size x:320 y:10
-        printf("Test after myROI \n");
         img = img(myROI);
         //filteren op witte kleur
-        printf("Test1\n");
         img = FindLine::WhiteFilter(img);
         //imshow("hallo",img);
-        printf("Test2\n");
 
         //find offsets
         uint8_t* pixelPtr = (uint8_t*)img.data;
@@ -138,7 +134,6 @@ offsets FindLine::FindOffset()
                             qDebug() << "10 witte pixels!";
                             if(pixelPtr[i*img.cols*cn + (j+roadwith)*cn + 0]==255 && pixelPtr[i*img.cols*cn + (j+roadwith)*cn + 1]==255 && pixelPtr[i*img.cols*cn + (j+roadwith)*cn + 2]==255)
                             {   //two white tracks?
-                                qDebug() << "TEST";
                                 for(x=0;x<10;x++) //check the next 10 pxs to find the other side
                                 {
                                     Scalar_<uint8_t> bgrPixelRight;
@@ -175,7 +170,6 @@ offsets FindLine::FindOffset()
                                 qDebug() << "CounterL:" << counterL;
                                 if(counterL==5)
                                 {
-                                    qDebug() << "Testing";
                                     offset.left = 160-j;
                                     offset.right = 220;
                                     return offset;
@@ -209,7 +203,6 @@ offsets FindLine::FindOffset()
                         if(whitePX==9) //if there is a row of white px (10 wide)
                         {
                             //check for the other side of the road, road is 220 px wide
-                            qDebug() << "10 witte pixels! rechts";
                             whitePX=0;
                             qDebug() << "Found right track!";
                             offset.left = 220; //default value for it there is no left track
