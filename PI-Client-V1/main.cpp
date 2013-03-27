@@ -6,6 +6,7 @@
 
 #include <QtTest/QTest>
 #include <QDebug>
+#include <QTime>
 //#include <QThread>
 
 /* Socket:
@@ -29,7 +30,11 @@ int main(int argc, char *argv[])
     for(int i=0;i<4;i++)
     {
     qDebug() << "==" << i << "==";
+    QTime MyTimer;
+    MyTimer.start();
     linefollowingthread lft(&s);
+    int diff = MyTimer.elapsed();
+    qDebug() << "TOTAL TIME: " << QString::number(diff);
     lft.run();
     QTest::qSleep(2000);
     }
