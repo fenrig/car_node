@@ -33,9 +33,9 @@ int main(int argc, char *argv[])
     QTime MyTimer;
     MyTimer.start();
     linefollowingthread lft(&s);
+    lft.run();
     int diff = MyTimer.elapsed();
     qDebug() << "TOTAL TIME: " << QString::number(diff);
-    lft.run();
     QTest::qSleep(2000);
     }
   //  binder b(&c,&s);
