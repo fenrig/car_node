@@ -12,7 +12,7 @@ void linefollowingthread::run(){
     FindLine fl;
     offsets os;
     os = fl.FindOffset();
-    int size = 1;
+    int size = 2;
     __u8 msg[size];
     msg[0]= os.right;
     msg[1]=os.left;

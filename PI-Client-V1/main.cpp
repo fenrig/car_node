@@ -31,7 +31,7 @@ int main(int argc, char *argv[])
     qDebug() << "==" << i << "==";
     linefollowingthread lft(&s);
     lft.run();
-    QTest::qSleep(200);
+    QTest::qSleep(500);
     }
   //  binder b(&c,&s);
 
