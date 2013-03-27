@@ -16,8 +16,8 @@ void linefollowingthread::run(){
     __u8 msg[size];
     msg[0]= os.right;
     msg[1]=os.left;
-    qDebug() << os.left << ":" << os.right;
-    s->send(msg);
+    qDebug() << msg[0] << ":" << msg[1];
+    s->send(msg,2);
     /*
     forever{
         s->send(msg);

@@ -45,7 +45,7 @@ void SPI::send(__u8 msg[], int size, int channel){
 
     tr.tx_buf = (unsigned long)tx;
     tr.rx_buf = (unsigned long)rx;
-    tr.len = sizeof(size);
+    tr.len = size;
     tr.delay_usecs = spiDelay;
     tr.speed_hz = spiSpeeds[channel];
     tr.bits_per_word = spiBPW;
