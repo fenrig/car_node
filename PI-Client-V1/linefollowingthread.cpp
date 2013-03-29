@@ -2,6 +2,8 @@
 #include "spi.h"
 #include "FindLine.h"
 #include "QDebug"
+#include "uartcamera.h"
+#include "vector"
 linefollowingthread::linefollowingthread(SPI* x, QObject *parent) :
     QThread(parent)
 {
@@ -11,7 +13,10 @@ linefollowingthread::linefollowingthread(SPI* x, QObject *parent) :
 void linefollowingthread::run(){
     FindLine fl;
     offsets os;
-    os = fl.FindOffset();
+    UartCamera cam;
+    cam.changeCompression(255);
+    std::vector<char> data = cam.GetPicture();
+    os = fl.FindOffset(data);
     int size = 2;
     __u8 msg[size];
     msg[0]= os.right;

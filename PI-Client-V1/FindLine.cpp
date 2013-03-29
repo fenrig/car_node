@@ -17,37 +17,19 @@
 #include <math.h>
 
 using namespace cv;
-int teller;
 
 FindLine::FindLine(QObject *parent) :
     QObject(parent)
 {
 }
 
-Mat FindLine::ReadImage(int teller)
+Mat FindLine::ReadImage()
 {
     QString Path;
     /*
-     *Test code
+     *PC Dries
+     *Lcation where the images are
      */
-    /*
-    if(teller==1)
-    {
-       Path = "/home/dries/Afbeeldingen/Lines/1.jpg"; //path where image is located
-    }
-    if(teller==2)
-    {
-        Path = "/home/dries/Afbeeldingen/Lines/2.jpg"; //path where image is located
-    }
-    if(teller==3)
-    {
-        Path = "/home/dries/Afbeeldingen/Lines/3.jpg"; //path where image is located
-    }
-    if(teller==4)
-    {
-        Path = "/home/dries/Afbeeldingen/Lines/stop.jpg"; //path where image is located
-    }
-    */
     //Path = "/home/dries/Afbeeldingen/20130311_184718 (another copy).jpg"; //path where image is located
     //Path = "/home/dries/Afbeeldingen/20130311_184718 (copy).jpg"; //path where image is located
     //Path = "/home/dries/Afbeeldingen/Lines/20130311_184718.jpg"; //path where image is located
@@ -58,26 +40,7 @@ Mat FindLine::ReadImage(int teller)
     //Path = "/root/Lines/20130311_184718 (another copy).jpg";
     //Path = "/root/Lines/20130311_184718 (copy).jpg";
     //Path = "/root/Lines/20130311_184718.jpg";
-    if(teller==1)
-    {
-       Path = "/root/Lines/1.jpg"; //path where image is located
-       qDebug() << "Teller:" << teller;
-    }
-    if(teller==2)
-    {
-        Path = "/root/Lines/2.jpg"; //path where image is located
-        qDebug() << "Teller:" << teller;
-    }
-    if(teller==3)
-    {
-        Path = "/root/Lines/3.jpg"; //path where image is located
-        qDebug() << "Teller:" << teller;
-    }
-    if(teller==4)
-    {
-        Path = "/root/Lines/stop.jpg"; //path where image is located
-        qDebug() << "Teller:" << teller;
-    }
+
     QByteArray ba = Path.toLocal8Bit();
     const char *PathChar = ba.data();
     Mat img = imread(PathChar); //read image+
@@ -94,13 +57,13 @@ Mat FindLine::WhiteFilter(const Mat& src)
     inRange(src,Scalar(0,0,90), Scalar(40,40,255),whiteOnly);
     return whiteOnly;
 }
-offsets FindLine::FindOffset()
+offsets FindLine::FindOffset(std::vector<char> data)
 {
     offsets offset;
-    Mat img;
+    Mat img = Mat(data);
+    img = imdecode(img,1);
     //read img from path
-    teller=teller+1;
-    img = FindLine::ReadImage(teller);
+    //img = FindLine::ReadImage();
     if(img.data)
     {
         //crop image
@@ -228,6 +191,7 @@ offsets FindLine::FindOffset()
     {
         printf("Invalid image! \n");
     }
+    qDebug() << "No offset!";
     offset.left = 220;
     offset.right = 220;
     return offset;

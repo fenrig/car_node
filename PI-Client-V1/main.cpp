@@ -27,17 +27,10 @@ int main(int argc, char *argv[])
   //  tcp_client c;
   //  c.connectToServer();
     SPI s;
-    for(int i=0;i<4;i++)
-    {
-    qDebug() << "==" << i << "==";
-    QTime MyTimer;
-    MyTimer.start();
+
     linefollowingthread lft(&s);
     lft.run();
-    int diff = MyTimer.elapsed();
-    qDebug() << "TOTAL TIME: " << QString::number(diff);
-    QTest::qSleep(2000);
-    }
+
   //  binder b(&c,&s);
 
     /*

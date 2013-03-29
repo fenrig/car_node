@@ -3,6 +3,7 @@
 
 #include <QString>
 #include <QObject>
+#include "vector"
 
 #include <opencv/cv.h>
 #include <opencv2/opencv.hpp>
@@ -20,9 +21,9 @@ class FindLine : public QObject
 {
 public:
     explicit FindLine(QObject *parent = 0);
-    Mat ReadImage(int);
+    Mat ReadImage(void);
     Mat WhiteFilter(const Mat& src);
-    offsets FindOffset(void);
+    offsets FindOffset(std::vector<char> data);
 };
 
 #endif // FINDLINE_H

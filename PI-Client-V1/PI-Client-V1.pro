@@ -12,6 +12,7 @@ QT += testlib
 TARGET = PI-Client-V1
 CONFIG   += console
 CONFIG   -= app_bundle
+CONFIG += extserialport
 
 TEMPLATE = app
 
@@ -21,14 +22,16 @@ SOURCES += main.cpp \
     spi.cpp \
     binder.cpp \
     FindLine.cpp \
-    linefollowingthread.cpp
+    linefollowingthread.cpp \
+    uartcamera.cpp
 
 HEADERS += \
     tcp_client.h \
     spi.h \
     binder.h \
     FindLine.h \
-    linefollowingthread.h
+    linefollowingthread.h \
+    uartcamera.h
 
 #Laptop Dries
 INCLUDEPATH += /home/dries/OpenCV/OpenCV-2.4.3/build/include
