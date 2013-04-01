@@ -51,9 +51,6 @@ Mat FindLine::WhiteFilter(const Mat& src)
 {
     assert(src.type() == CV_8UC3);
     Mat whiteOnly;
-    cvtColor(src,src,CV_BGR2HSV);
-    //inRange(src,Scalar(0,0,255), Scalar(0,0,255), whiteOnly);
-    //inRange(src,Scalar(0,0,100), Scalar(100,50,255), whiteOnly);
     /*
      *Debug
      */
@@ -65,6 +62,10 @@ Mat FindLine::WhiteFilter(const Mat& src)
     /*
      *End
      */
+    cvtColor(src,src,CV_BGR2HSV);
+    //inRange(src,Scalar(0,0,255), Scalar(0,0,255), whiteOnly);
+    //inRange(src,Scalar(0,0,100), Scalar(100,50,255), whiteOnly);
+
     inRange(src,Scalar(0,0,90), Scalar(40,40,255),whiteOnly);
     /*
      *Debug
