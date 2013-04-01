@@ -159,12 +159,11 @@ std::vector<char> UartCamera::GetPicture(){
     std::vector<char> *vect = new std::vector<char>;
 
     //test
-    QFile file("/root/pics/out.txt");
+    QFile file("/root/pics/out..jpg");
     if (!file.open(QIODevice::WriteOnly | QIODevice::Text))
     {
         qDebug() << "krijgt file niet open";
     }
-    QTextStream out(&file);
     //test
 
     while(!EndFlag){
@@ -178,7 +177,7 @@ std::vector<char> UartCamera::GetPicture(){
 
                 if((k>5) && (j<DATARATE) && (!EndFlag)){
                     vect->push_back(incomingbyte);
-                    out << incomingbyte;
+                    file.write(&incomingbyte);
                     data[j] = incomingbyte;
                     if((data[j-1] == 0xFF) && (data[j] == 0xD9)) EndFlag = true;
                     j++;
