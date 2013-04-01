@@ -177,7 +177,7 @@ std::vector<char> UartCamera::GetPicture(){
 
                 if((k>5) && (j<DATARATE) && (!EndFlag)){
                     vect->push_back(incomingbyte);
-                    file.write(&incomingbyte);
+                    file.write(&incomingbyte,1);
                     data[j] = incomingbyte;
                     if((data[j-1] == 0xFF) && (data[j] == 0xD9)) EndFlag = true;
                     j++;
