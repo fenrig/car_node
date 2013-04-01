@@ -159,8 +159,8 @@ std::vector<char> UartCamera::GetPicture(){
     std::vector<char> *vect = new std::vector<char>;
 
     //test
-    QFile file("/root/pics/out..jpg");
-    if (!file.open(QIODevice::WriteOnly | QIODevice::Text))
+    QFile file("/root/pics/out.jpg");
+    if (!file.open(QIODevice::WriteOnly))
     {
         qDebug() << "krijgt file niet open";
     }
