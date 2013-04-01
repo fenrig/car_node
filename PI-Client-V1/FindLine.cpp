@@ -92,7 +92,7 @@ offsets FindLine::FindOffset(std::vector<char> data)
         compression_params.push_back(95);
         imwrite("/root/pics/alphacolorbig.jpg", img, compression_params);
         //crop image
-        cv::Rect myROI(0, 110, 320, 10); //start position x:0 y:230 || size x:320 y:10
+        cv::Rect myROI(0, 100, 320, 10); //start position x:0 y:230 || size x:320 y:10
         img = img(myROI);
         //filteren op witte kleur
         img = FindLine::WhiteFilter(img);

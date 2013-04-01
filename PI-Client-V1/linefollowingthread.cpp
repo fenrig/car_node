@@ -16,6 +16,8 @@ void linefollowingthread::run(){
     UartCamera cam;
     cam.changeCompression(255);
     std::vector<char> data = cam.GetPicture();
+    for(int i=0;i<10;i++)
+    {
     os = fl.FindOffset(data);
     int size = 2;
     __u8 msg[size];
@@ -23,6 +25,7 @@ void linefollowingthread::run(){
     msg[1]=os.left;
     qDebug() << msg[0] << ":" << msg[1];
     s->send(msg,2);
+    }
     /*
     forever{
         s->send(msg);
