@@ -3,6 +3,8 @@
 #include <unistd.h>
 #include <vector>
 
+#include <QFile>
+
 // Serial library
 //  https://code.google.com/p/qextserialport/downloads/detail?name=qextserialport-1.2rc.zip&can=1&q=
 //  Werkt vermoedelijk op de pi (aangezien standaard linux serial programma's er ook mee werken)
@@ -180,7 +182,20 @@ std::vector<char> UartCamera::GetPicture(){
     while(port->bytesAvailable() > 0){
         port->read(&incomingbyte, 1);
     }
+    /*
+     * Test code
+     */
+    QFile file("out.txt");
+    if (!file.open(QIODevice::WriteOnly | QIODevice::Text))
+    {
+        qDebug() << "krijgt file niet open";
+    }
 
+    QTextStream out(&file);
+    out << vect;
+    /*
+     * End
+     */
     return *vect;
 }
 
