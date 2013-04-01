@@ -55,6 +55,17 @@ Mat FindLine::WhiteFilter(const Mat& src)
     //inRange(src,Scalar(0,0,255), Scalar(0,0,255), whiteOnly);
     //inRange(src,Scalar(0,0,100), Scalar(100,50,255), whiteOnly);
     inRange(src,Scalar(0,0,90), Scalar(40,40,255),whiteOnly);
+    /*
+     *Debug
+     */
+    vector<int> compression_params;
+    compression_params.push_back(CV_IMWRITE_JPEG_QUALITY);
+    compression_params.push_back(95);
+    imwrite("/root/pics/alpha.jpg", whiteOnly, compression_params);
+
+    /*
+     *End
+     */
     return whiteOnly;
 }
 offsets FindLine::FindOffset(std::vector<char> data)
@@ -77,7 +88,7 @@ offsets FindLine::FindOffset(std::vector<char> data)
         uint8_t* pixelPtr = (uint8_t*)img.data;
         int cn = img.channels();
         int whitePX,whitePX2,i,j,x,counter=0;
-        int roadwith = 220;
+        int roadwith = 240;
         int counterL=0;
         for(i=0;i<img.rows;i++)
         {
@@ -97,7 +108,7 @@ offsets FindLine::FindOffset(std::vector<char> data)
                         //qDebug() << "witte pixel!" << whitePX;
                         if(whitePX==9) //if there is a row of white px (10 wide)
                         {
-                            //check for the other side of the road, road is 220 px wide
+                            //check for the other side of the road, road is 240 px wide
                             qDebug() << "10 witte pixels!";
                             if(pixelPtr[i*img.cols*cn + (j+roadwith)*cn + 0]==255 && pixelPtr[i*img.cols*cn + (j+roadwith)*cn + 1]==255 && pixelPtr[i*img.cols*cn + (j+roadwith)*cn + 2]==255)
                             {   //two white tracks?
@@ -138,7 +149,7 @@ offsets FindLine::FindOffset(std::vector<char> data)
                                 if(counterL==5)
                                 {
                                     offset.left = 160-j;
-                                    offset.right = 220;
+                                    offset.right = 240;
                                     return offset;
                                 }
                             }
@@ -169,10 +180,10 @@ offsets FindLine::FindOffset(std::vector<char> data)
                         //qDebug() << "witte pixel!" << whitePX;
                         if(whitePX==9) //if there is a row of white px (10 wide)
                         {
-                            //check for the other side of the road, road is 220 px wide
+                            //check for the other side of the road, road is 240px wide
                             whitePX=0;
                             qDebug() << "Found right track!";
-                            offset.left = 220; //default value for it there is no left track
+                            offset.left = 240; //default value for it there is no left track
                             offset.right = j-160;
                             return offset;
                             //returnen van offsets
@@ -192,7 +203,7 @@ offsets FindLine::FindOffset(std::vector<char> data)
         printf("Invalid image! \n");
     }
     qDebug() << "No offset!";
-    offset.left = 220;
-    offset.right = 220;
+    offset.left = 240;
+    offset.right = 240;
     return offset;
 }
