@@ -86,6 +86,10 @@ offsets FindLine::FindOffset(std::vector<char> data)
     //img = FindLine::ReadImage();
     if(img.data)
     {
+        vector<int> compression_params;
+        compression_params.push_back(CV_IMWRITE_JPEG_QUALITY);
+        compression_params.push_back(95);
+        imwrite("/root/pics/alphacolorbig.jpg", img, compression_params);
         //crop image
         cv::Rect myROI(0, 110, 320, 10); //start position x:0 y:230 || size x:320 y:10
         img = img(myROI);
