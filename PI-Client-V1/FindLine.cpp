@@ -54,13 +54,22 @@ Mat FindLine::WhiteFilter(const Mat& src)
     cvtColor(src,src,CV_BGR2HSV);
     //inRange(src,Scalar(0,0,255), Scalar(0,0,255), whiteOnly);
     //inRange(src,Scalar(0,0,100), Scalar(100,50,255), whiteOnly);
-    inRange(src,Scalar(0,0,90), Scalar(40,40,255),whiteOnly);
     /*
      *Debug
      */
     vector<int> compression_params;
     compression_params.push_back(CV_IMWRITE_JPEG_QUALITY);
     compression_params.push_back(95);
+    imwrite("/root/pics/alphacolor.jpg", src, compression_params);
+
+    /*
+     *End
+     */
+    inRange(src,Scalar(0,0,90), Scalar(40,40,255),whiteOnly);
+    /*
+     *Debug
+     */
+
     imwrite("/root/pics/alpha.jpg", whiteOnly, compression_params);
 
     /*
