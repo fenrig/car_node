@@ -67,7 +67,7 @@ offsets FindLine::FindOffset(std::vector<char> data)
     if(img.data)
     {
         //crop image
-        cv::Rect myROI(0, 230, 320, 10); //start position x:0 y:230 || size x:320 y:10
+        cv::Rect myROI(0, 110, 320, 10); //start position x:0 y:230 || size x:320 y:10
         img = img(myROI);
         //filteren op witte kleur
         img = FindLine::WhiteFilter(img);
