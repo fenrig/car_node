@@ -86,7 +86,7 @@ offsets FindLine::FindOffset(std::vector<char> data, int teller)
          */
         QString Path2 = "/root/pics/filtert" + QString::number(teller) + ".jpg";
         QByteArray ba2 = Path2.toLocal8Bit();
-        const char *PathChar2 = ba.data();
+        const char *PathChar2 = ba2.data();
         imwrite(PathChar2,img, compression_params);
         /*
          *End
