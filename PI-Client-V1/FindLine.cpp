@@ -72,7 +72,7 @@ offsets FindLine::FindOffset(std::vector<char> data, int teller)
         vector<int> compression_params;
         compression_params.push_back(CV_IMWRITE_JPEG_QUALITY);
         compression_params.push_back(95);
-        QString Path = "root/pics/origineel" + QString::number(teller) + ".jpg";
+        QString Path = "/root/pics/origineel" + QString::number(teller) + ".jpg";
         QByteArray ba = Path.toLocal8Bit();
         const char *PathChar = ba.data();
         imwrite(PathChar, img, compression_params);
@@ -84,7 +84,7 @@ offsets FindLine::FindOffset(std::vector<char> data, int teller)
         /*
          *Debug
          */
-        QString Path2 = "root/pics/filtert" + QString::number(teller) + ".jpg";
+        QString Path2 = "/root/pics/filtert" + QString::number(teller) + ".jpg";
         QByteArray ba2 = Path2.toLocal8Bit();
         const char *PathChar2 = ba.data();
         imwrite(PathChar2,img, compression_params);
