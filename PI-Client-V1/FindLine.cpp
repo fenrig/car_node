@@ -51,34 +51,16 @@ Mat FindLine::WhiteFilter(const Mat& src)
 {
     assert(src.type() == CV_8UC3);
     Mat whiteOnly;
-    /*
-     *Debug
-     */
-    vector<int> compression_params;
-    compression_params.push_back(CV_IMWRITE_JPEG_QUALITY);
-    compression_params.push_back(95);
-    imwrite("/root/pics/alphacolor.jpg", src, compression_params);
 
-    /*
-     *End
-     */
     cvtColor(src,src,CV_BGR2HSV);
     //inRange(src,Scalar(0,0,255), Scalar(0,0,255), whiteOnly);
     //inRange(src,Scalar(0,0,100), Scalar(100,50,255), whiteOnly);
 
     inRange(src,Scalar(0,0,90), Scalar(40,40,255),whiteOnly);
-    /*
-     *Debug
-     */
 
-    imwrite("/root/pics/alpha.jpg", whiteOnly, compression_params);
-
-    /*
-     *End
-     */
     return whiteOnly;
 }
-offsets FindLine::FindOffset(std::vector<char> data)
+offsets FindLine::FindOffset(std::vector<char> data, int teller)
 {
     offsets offset;
     Mat img = Mat(data);
@@ -90,13 +72,25 @@ offsets FindLine::FindOffset(std::vector<char> data)
         vector<int> compression_params;
         compression_params.push_back(CV_IMWRITE_JPEG_QUALITY);
         compression_params.push_back(95);
-        imwrite("/root/pics/alphacolorbig.jpg", img, compression_params);
+        QString Path = "root/pics/origineel" + QString::number(teller) + ".jpg";
+        QByteArray ba = Path.toLocal8Bit();
+        const char *PathChar = ba.data();
+        imwrite(PathChar, img, compression_params);
         //crop image
         cv::Rect myROI(0, 100, 320, 10); //start position x:0 y:230 || size x:320 y:10
         img = img(myROI);
         //filteren op witte kleur
         img = FindLine::WhiteFilter(img);
-        //imshow("hallo",img);
+        /*
+         *Debug
+         */
+        QString Path2 = "root/pics/filtert" + QString::number(teller) + ".jpg";
+        QByteArray ba2 = Path2.toLocal8Bit();
+        const char *PathChar2 = ba.data();
+        imwrite(PathChar2,img, compression_params);
+        /*
+         *End
+         */
 
         //find offsets
         uint8_t* pixelPtr = (uint8_t*)img.data;

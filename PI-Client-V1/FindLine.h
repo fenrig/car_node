@@ -23,7 +23,7 @@ public:
     explicit FindLine(QObject *parent = 0);
     Mat ReadImage(void);
     Mat WhiteFilter(const Mat& src);
-    offsets FindOffset(std::vector<char> data);
+    offsets FindOffset(std::vector<char> data, int teller);
 };
 
 #endif // FINDLINE_H
