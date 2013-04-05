@@ -100,113 +100,111 @@ offsets FindLine::FindOffset(std::vector<char> data, int teller)
         int counterL=0;
         for(i=0;i<img.rows;i++)
         {
-            if(counter<5) //amount of tries to find the left road
+            for(j=0;j<img.cols/2; j+= cn)
             {
-                for(j=0;j<img.cols/2; j+= cn)
+                //get color from image
+                Scalar_<uint8_t> bgrPixel;
+                bgrPixel.val[0] = pixelPtr[i*img.cols*cn + j*cn + 0]; // B
+                bgrPixel.val[1] = pixelPtr[i*img.cols*cn + j*cn + 1]; // G
+                bgrPixel.val[2] = pixelPtr[i*img.cols*cn + j*cn + 2]; // R
+                //check if color is white or not
+                if(bgrPixel.val[0]==255 && bgrPixel.val[1]==255 && bgrPixel.val[2]==255)
                 {
-                    //get color from image
-                    Scalar_<uint8_t> bgrPixel;
-                    bgrPixel.val[0] = pixelPtr[i*img.cols*cn + j*cn + 0]; // B
-                    bgrPixel.val[1] = pixelPtr[i*img.cols*cn + j*cn + 1]; // G
-                    bgrPixel.val[2] = pixelPtr[i*img.cols*cn + j*cn + 2]; // R
-                    //check if color is white or not
-                    if(bgrPixel.val[0]==255 && bgrPixel.val[1]==255 && bgrPixel.val[2]==255)
+                    whitePX = whitePX +1; //count the amount of white pixels
+                    if(whitePX==9) //if there is a row of white px (10 wide)
                     {
-                        whitePX = whitePX +1; //count the amount of white pixels
-                        //qDebug() << "witte pixel!" << whitePX;
-                        if(whitePX==9) //if there is a row of white px (10 wide)
-                        {
-                            //check for the other side of the road, road is 250 px wide
-                            qDebug() << "10 witte pixels!";
-                            if(pixelPtr[i*img.cols*cn + (j+roadwith)*cn + 0]==255 && pixelPtr[i*img.cols*cn + (j+roadwith)*cn + 1]==255 && pixelPtr[i*img.cols*cn + (j+roadwith)*cn + 2]==255)
-                            {   //two white tracks?
-                                for(x=0;x<10;x++) //check the next 10 pxs to find the other side
+                        //check for the other side of the road, road is 250 px wide
+                        qDebug() << "10 witte pixels!";
+                        if(pixelPtr[i*img.cols*cn + (j+roadwith)*cn + 0]==255 && pixelPtr[i*img.cols*cn + (j+roadwith)*cn + 1]==255 && pixelPtr[i*img.cols*cn + (j+roadwith)*cn + 2]==255)
+                        {   //two white tracks?
+                            for(x=0;x<10;x++) //check the next 10 pxs to find the other side
+                            {
+                                Scalar_<uint8_t> bgrPixelRight;
+                                int position;
+                                //position = j+roadwith-10+x; //check other side of the road
+                                position = j+roadwith-5+x;
+                                bgrPixelRight.val[0] = pixelPtr[i*img.cols*cn + (position)*cn + 0];
+                                bgrPixelRight.val[1] = pixelPtr[i*img.cols*cn + (position)*cn + 1];
+                                bgrPixelRight.val[2] = pixelPtr[i*img.cols*cn + (position)*cn + 2];
+                                if(bgrPixelRight.val[0]==255 && bgrPixelRight.val[1]==255 && bgrPixelRight[2]==255)
                                 {
-                                    Scalar_<uint8_t> bgrPixelRight;
-                                    int position;
-                                    position = j+roadwith-10+x; //check other side of the road
-                                    bgrPixelRight.val[0] = pixelPtr[i*img.cols*cn + (position)*cn + 0];
-                                    bgrPixelRight.val[1] = pixelPtr[i*img.cols*cn + (position)*cn + 1];
-                                    bgrPixelRight.val[2] = pixelPtr[i*img.cols*cn + (position)*cn + 2];
-                                    if(bgrPixelRight.val[0]==255 && bgrPixelRight.val[1]==255 && bgrPixelRight[2]==255)
-                                    {
-                                       whitePX2=whitePX2+1;
-                                    }
-                                    else
-                                    {
-                                        whitePX2=0;
-                                    }
+                                    whitePX2=whitePX2+1;
                                 }
-                                if(whitePX2==10)
-                                {
-                                    //return offsets
-                                    qDebug()<< "Found Tracks!";
-                                    offset.left = 160-j; //160= mid of the picture , j = position of the track
-                                    offset.right= j+roadwith-160; //j+roadwith = position of the track , 160=mid of the picture
-                                    return offset;
-                                }
+                                /*
                                 else
                                 {
                                     whitePX2=0;
                                 }
+                                */
+                            }
+                            //if(whitePX2==10)
+                            if(whitePX2>5)
+                            {
+                                //return offsets
+                                qDebug()<< "Found Tracks!";
+                                offset.left = 160-j; //160= mid of the picture , j = position of the track
+                                offset.right= j+roadwith-160; //j+roadwith = position of the track , 160=mid of the picture
+                                return offset;
                             }
                             else
                             {
-                                counterL = counterL+1;
-                                qDebug() << "CounterL:" << counterL;
-                                if(counterL==5)
-                                {
-                                    offset.left = 160-j;
-                                    offset.right = 250;
-                                    return offset;
-                                }
+                                whitePX2=0;
                             }
-                            whitePX=0;
                         }
-                    }
-                    else
-                    {
-                        whitePX=0; //if there is a black px in the row, put counter on 0
-                        //qDebug() << "zwarte pixel!";
+                        else //if no white pxl is found on the other side
+                        {
+                            counterL = counterL+1; //count how many times there is no white pixel found on the other side
+                            qDebug() << "CounterL:" << counterL;
+                            if(counterL==5) //if it happened 5 times that there was no white pxl at the other side, there is no road on the other side
+                            {
+                                offset.left = 160-j;
+                                offset.right = 250;
+                                return offset;
+                            }
+                        }
+                        whitePX=0;
                     }
                 }
-                counter=counter+1;
-            }
-            if(counter==5) //if this is true , there is no track on the left side => follow the right side
-            {
-                for(j=img.cols/2;j<img.cols && j>=img.cols/2; j+= cn)
+                else
                 {
-                    //get color from image
-                    Scalar_<uint8_t> bgrPixel;
-                    bgrPixel.val[0] = pixelPtr[i*img.cols*cn + j*cn + 0]; // B
-                    bgrPixel.val[1] = pixelPtr[i*img.cols*cn + j*cn + 1]; // G
-                    bgrPixel.val[2] = pixelPtr[i*img.cols*cn + j*cn + 2]; // R
-                    //check if color is white or not
-                    if(bgrPixel.val[0]==255 && bgrPixel.val[1]==255 && bgrPixel.val[2]==255)
-                    {
-                        whitePX = whitePX +1; //count the amount of white pixels
-                        //qDebug() << "witte pixel!" << whitePX;
-                        if(whitePX==9) //if there is a row of white px (10 wide)
-                        {
-                            //check for the other side of the road, road is 250px wide
-                            whitePX=0;
-                            qDebug() << "Found right track!";
-                            offset.left = 250; //default value for it there is no left track
-                            offset.right = j-160;
-                            return offset;
-                            //returnen van offsets
-                        }
-                    }
-                    else
-                    {
-                        whitePX=0; //if there is a black px in the row, put counter on 0
-                        //qDebug() << "zwarte pixel!";
-                    }
+                    whitePX=0; //if there is a black px in the row, put counter on 0
+                    //qDebug() << "zwarte pixel!";
                 }
             }
         }
-        //imshow("cropped",img);
+        //right side only
+        for(i=0;i<img.rows;i++)
+        {
+            for(j=img.cols/2;j<img.cols && j>=img.cols/2; j+= cn)
+            {
+                //get color from image
+                Scalar_<uint8_t> bgrPixel;
+                bgrPixel.val[0] = pixelPtr[i*img.cols*cn + j*cn + 0]; // B
+                bgrPixel.val[1] = pixelPtr[i*img.cols*cn + j*cn + 1]; // G
+                bgrPixel.val[2] = pixelPtr[i*img.cols*cn + j*cn + 2]; // R
+                //check if color is white or not
+                if(bgrPixel.val[0]==255 && bgrPixel.val[1]==255 && bgrPixel.val[2]==255)
+                {
+                    whitePX = whitePX +1; //count the amount of white pixels
+                    if(whitePX==9) //if there is a row of white px (10 wide)
+                    {
+                        whitePX=0;
+                        qDebug() << "Found right track!";
+                        offset.left = 250; //default value for it there is no left track
+                        offset.right = j-160;
+                        return offset;
+                        //returnen van offsets
+                    }
+                }
+                else
+                {
+                    whitePX=0; //if there is a black px in the row, put counter on 0
+                    //qDebug() << "zwarte pixel!";
+                }
+            }
+        }
     }
+    else
     {
         printf("Invalid image! \n");
     }
