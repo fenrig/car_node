@@ -37,8 +37,8 @@ SPI::SPI(){
     dumpstat();
 }
 
-void SPI::send(__u8 msg[], int size, int channel){
-    tx = msg;
+void SPI::send(unsigned char *msg, int size, int channel){
+    tx = (__u8*) msg;
     __u8 quirk[size];
     rx = quirk;
     struct spi_ioc_transfer tr;

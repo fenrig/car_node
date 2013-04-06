@@ -3,6 +3,7 @@
 #include <spi.h>
 #include <cstdio>
 #include <QMap>
+#include <QDebug>
 
 binder::binder(tcp_client *tcp_x, SPI *spi_x, QObject *parent) :
     QObject(parent), tcp(tcp_x), spi(spi_x)
@@ -18,6 +19,17 @@ binder::binder(tcp_client *tcp_x, SPI *spi_x, QObject *parent) :
 }
 
 void binder::parseTCPmsg(QString msg){
+    QByteArray* val = NULL;
+    if(msg == "instructionlist_changed"){
+        QByteArray val("get_instructions");
+    }
+    if(val != NULL) tcp->write_data(&val);
+}
+
+
+/*
+// CAR-V1
+void binder::parseTCPmsg(QString msg){
     printf("[CONNECT] Data: '%s'\n",msg.toUtf8().constData());
     //QByteArray iArray = msg.toAscii().toHex();
     //printf("HEX: '%s'\n",iArray.data());
@@ -28,7 +40,7 @@ void binder::parseTCPmsg(QString msg){
         unsigned char sendvalue[2];
         sendvalue[0] = value;
         sendvalue[1] = (unsigned char)255;
-        spi->send(sendvalue);
+        spi->send(sendvalue,2);
     }
     /*
     if(msg == QString("forward")){
@@ -47,7 +59,8 @@ void binder::parseTCPmsg(QString msg){
         spi->send((unsigned char*)4);
         return;
      }
-     */
+     *//*
     //spi->send((unsigned char*)"x");
     //printf("[ERROR] Could not parse TCP message: '%s'\n",msg.toUtf8().constData());
 }
+*/

@@ -19,22 +19,22 @@ tcp_client::tcp_client(QObject *parent) : QObject(parent)
 
 void tcp_client::read_data(){
     //char read_buffer[56] = "";
-    QByteArray read_buffer = (socket->read(56));
+    QByteArray read_buffer = (socket->readAll());
     printf("[INFO] Received: %s\n",read_buffer.data());
     emit readyRead((QString(read_buffer).trimmed()));
 }
 
 void tcp_client::write_data(QByteArray *buffer){
     buffer->rightJustified(56,' ',true);
-    // socket->write(buffer);
-    // socket->flush();
-
+    socket->write(*buffer);
+    socket->flush();
 }
 
 void tcp_client::on_connected(){
     //----------
     printf("[INFO] Authenticating to CAR-SERVER\n");
-    char auth_buffer[13] = "car_v1      ";
+    // char auth_buffer[13] = "car_v1      ";
+    char auth_buffer[13] = "car_v2      ";
     socket->write(auth_buffer);
     socket->flush();
     //----------

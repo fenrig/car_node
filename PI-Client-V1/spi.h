@@ -13,7 +13,7 @@ public:
     void dumpstat(int channel = 0);
     int setSPImode(void);
     void setupSPI(int channel = 0, int speed = 500000);
-    void send(__u8 msg[], int size = 1, int channel = 0);
+    void send(unsigned char *msg, int size = 1, int channel = 0);
 };
 
 #endif // SPI_H
