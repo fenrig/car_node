@@ -71,9 +71,9 @@ offsets FindLine::FindOffset(std::vector<char> data, int teller)
         vector<int> compression_params;
         compression_params.push_back(CV_IMWRITE_JPEG_QUALITY);
         compression_params.push_back(95);
-        QString Path = "/home/dries/Documenten/Project2/PI code/DebuggingCarCode/TestPictures/origineel" + QString::number(teller) + ".jpg";
+        /*QString Path = "/home/dries/Documenten/Project2/PI code/DebuggingCarCode/TestPictures/origineel" + QString::number(teller) + ".jpg";
         QByteArray ba = Path.toLocal8Bit();
-        const char *PathChar = ba.data();
+        const char *PathChar = ba.data(); */
         //imwrite(PathChar, img, compression_params);
         //crop image
         cv::Rect myROI(0, 100, 320, 10); //start position x:0 y:250 || size x:320 y:10
@@ -83,10 +83,10 @@ offsets FindLine::FindOffset(std::vector<char> data, int teller)
         /*
          *Debug
          */
-        QString Path2 = "/home/dries/Documenten/Project2/PI code/DebuggingCarCode/TestPictures/filtered2-" + QString::number(teller) + ".jpg";
+        /*QString Path2 = "/home/dries/Documenten/Project2/PI code/DebuggingCarCode/TestPictures/filtered2-" + QString::number(teller) + ".jpg";
         QByteArray ba2 = Path2.toLocal8Bit();
         const char *PathChar2 = ba2.data();
-        imwrite(PathChar2,img, compression_params);
+        imwrite(PathChar2,img, compression_params); */
         /*
          *End
          */

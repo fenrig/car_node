@@ -15,12 +15,12 @@ linefollowingthread::linefollowingthread(SPI* x, QObject *parent) :
 void linefollowingthread::run(){
     FindLine fl;
     offsets os;
-    //UartCamera cam;
-    //cam.changeCompression(255);
+    UartCamera cam;
+    cam.changeCompression(255);
     for(int i=0;i<14;i++)
     {
-        //std::vector<char> data = cam.GetPicture();
-        std::vector<char> data;
+        std::vector<char> data = cam.GetPicture();
+        /*std::vector<char> data;
         QFile pic("/home/dries/Documenten/Project2/PI code/DebuggingCarCode/TestPictures/origineel" + QString::number(i) + ".jpg");
 
         if (!pic.open(QIODevice::ReadOnly)){
@@ -32,7 +32,7 @@ void linefollowingthread::run(){
             pic.read(&incomingbyte,1);
             data.push_back(incomingbyte);
 
-        }
+        } */
 
         //
         os = fl.FindOffset(data,i);
@@ -41,7 +41,7 @@ void linefollowingthread::run(){
         msg[0]= os.left;
         msg[1]=os.right;
         qDebug() << i << ": " << msg[0] << ":" << msg[1];
-        pic.close();
+        //pic.close();
 
         //s->send(msg,2);
     }
