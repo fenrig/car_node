@@ -1,4 +1,3 @@
-
 #include "FindLine.h"
 #include <opencv/cv.h>
 #include <opencv2/opencv.hpp>
@@ -46,17 +45,17 @@ Mat FindLine::ReadImage()
     Mat img = imread(PathChar); //read image+
     return img;
 }
-
 Mat FindLine::WhiteFilter(const Mat& src)
 {
     assert(src.type() == CV_8UC3);
     Mat whiteOnly;
-
+    Mat src2;
     cvtColor(src,src,CV_BGR2HSV);
     //inRange(src,Scalar(0,0,255), Scalar(0,0,255), whiteOnly);
     //inRange(src,Scalar(0,0,100), Scalar(100,50,255), whiteOnly);
-
-    inRange(src,Scalar(0,0,120), Scalar(100,100,255),whiteOnly);
+    src2 = src + cv::Scalar(-255, -255,0);
+    inRange(src2,Scalar(0,0,120), Scalar(0,0,255),whiteOnly);
+    //inRange(src2,Scalar(0,0,120), Scalar(100,100,255),whiteOnly); //working decently
 
     return whiteOnly;
 }
@@ -72,19 +71,19 @@ offsets FindLine::FindOffset(std::vector<char> data, int teller)
         vector<int> compression_params;
         compression_params.push_back(CV_IMWRITE_JPEG_QUALITY);
         compression_params.push_back(95);
-        QString Path = "/root/pics/origineel" + QString::number(teller) + ".jpg";
+        QString Path = "/home/dries/Documenten/Project2/PI code/DebuggingCarCode/TestPictures/origineel" + QString::number(teller) + ".jpg";
         QByteArray ba = Path.toLocal8Bit();
         const char *PathChar = ba.data();
-        imwrite(PathChar, img, compression_params);
+        //imwrite(PathChar, img, compression_params);
         //crop image
-        cv::Rect myROI(0, 100, 320, 10); //start position x:0 y:230 || size x:320 y:10
+        cv::Rect myROI(0, 100, 320, 10); //start position x:0 y:250 || size x:320 y:10
         img = img(myROI);
         //filteren op witte kleur
         img = FindLine::WhiteFilter(img);
         /*
          *Debug
          */
-        QString Path2 = "/root/pics/filtert" + QString::number(teller) + ".jpg";
+        QString Path2 = "/home/dries/Documenten/Project2/PI code/DebuggingCarCode/TestPictures/filtered2-" + QString::number(teller) + ".jpg";
         QByteArray ba2 = Path2.toLocal8Bit();
         const char *PathChar2 = ba2.data();
         imwrite(PathChar2,img, compression_params);
@@ -95,7 +94,7 @@ offsets FindLine::FindOffset(std::vector<char> data, int teller)
         //find offsets
         uint8_t* pixelPtr = (uint8_t*)img.data;
         int cn = img.channels();
-        int whitePX,whitePX2,i,j,x,counter=0;
+        int whitePX,whitePX2,i,j,x;
         int roadwith = 250;
         int counterL=0;
         for(i=0;i<img.rows;i++)
@@ -114,7 +113,7 @@ offsets FindLine::FindOffset(std::vector<char> data, int teller)
                     if(whitePX==9) //if there is a row of white px (10 wide)
                     {
                         //check for the other side of the road, road is 250 px wide
-                        qDebug() << "10 witte pixels!";
+                        //qDebug() << "10 witte pixels!";
                         if(pixelPtr[i*img.cols*cn + (j+roadwith)*cn + 0]==255 && pixelPtr[i*img.cols*cn + (j+roadwith)*cn + 1]==255 && pixelPtr[i*img.cols*cn + (j+roadwith)*cn + 2]==255)
                         {   //two white tracks?
                             for(x=0;x<10;x++) //check the next 10 pxs to find the other side
@@ -154,7 +153,7 @@ offsets FindLine::FindOffset(std::vector<char> data, int teller)
                         else //if no white pxl is found on the other side
                         {
                             counterL = counterL+1; //count how many times there is no white pixel found on the other side
-                            qDebug() << "CounterL:" << counterL;
+                            //qDebug() << "CounterL:" << counterL;
                             if(counterL==5) //if it happened 5 times that there was no white pxl at the other side, there is no road on the other side
                             {
                                 offset.left = 160-j;

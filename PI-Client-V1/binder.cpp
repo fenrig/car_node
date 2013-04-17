@@ -23,7 +23,7 @@ void binder::parseTCPmsg(QString msg){
     if(msg == "instructionlist_changed"){
         QByteArray val("get_instructions");
     }
-    if(val != NULL) tcp->write_data(&val);
+    if(val != NULL) tcp->write_data(val);
 }
 
 

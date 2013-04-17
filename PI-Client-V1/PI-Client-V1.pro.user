@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by Qt Creator 2.6.2, 2013-04-07T00:23:40. -->
+<!-- Written by Qt Creator 2.6.2, 2013-04-17T10:34:39. -->
 <qtcreator>
  <data>
   <variable>ProjectExplorer.Project.ActiveTarget</variable>
@@ -53,7 +53,7 @@
   <valuemap type="QVariantMap">
    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">QT4.8</value>
    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">QT4.8</value>
-   <value type="QByteArray" key="ProjectExplorer.ProjectConfiguration.Id">{394ed001-cd4d-423f-a593-1914d8a6401d}</value>
+   <value type="QByteArray" key="ProjectExplorer.ProjectConfiguration.Id">{0b786ab5-5eb8-4c3c-b1f6-b083f79e8f10}</value>
    <value type="int" key="ProjectExplorer.Target.ActiveBuildConfiguration">0</value>
    <value type="int" key="ProjectExplorer.Target.ActiveDeployConfiguration">0</value>
    <value type="int" key="ProjectExplorer.Target.ActiveRunConfiguration">0</value>
@@ -105,7 +105,7 @@
     <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName"></value>
     <value type="QByteArray" key="ProjectExplorer.ProjectConfiguration.Id">Qt4ProjectManager.Qt4BuildConfiguration</value>
     <value type="int" key="Qt4ProjectManager.Qt4BuildConfiguration.BuildConfiguration">2</value>
-    <value type="QString" key="Qt4ProjectManager.Qt4BuildConfiguration.BuildDirectory">/mnt/archlinux/home/fenrig/Insync/i-r0333271@student.lessius.eu/project/car_node/PI-Client-V1-build-QT4_8-Debug</value>
+    <value type="QString" key="Qt4ProjectManager.Qt4BuildConfiguration.BuildDirectory">/home/dries/Documenten/Project2/PI code/car_node/PI-Client-V1-build-QT4_8-Debug</value>
     <value type="bool" key="Qt4ProjectManager.Qt4BuildConfiguration.UseShadowBuild">true</value>
    </valuemap>
    <value type="int" key="ProjectExplorer.Target.BuildConfigurationCount">1</value>
@@ -156,7 +156,7 @@
     </valuelist>
     <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">PI-Client-V1</value>
     <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName"></value>
-    <value type="QByteArray" key="ProjectExplorer.ProjectConfiguration.Id">Qt4ProjectManager.Qt4RunConfiguration:/mnt/archlinux/home/fenrig/Insync/i-r0333271@student.lessius.eu/project/car_node/PI-Client-V1/PI-Client-V1.pro</value>
+    <value type="QByteArray" key="ProjectExplorer.ProjectConfiguration.Id">Qt4ProjectManager.Qt4RunConfiguration:/home/dries/Documenten/Project2/PI code/car_node/PI-Client-V1/PI-Client-V1.pro</value>
     <value type="int" key="Qt4ProjectManager.Qt4RunConfiguration.BaseEnvironmentBase">2</value>
     <value type="QString" key="Qt4ProjectManager.Qt4RunConfiguration.CommandLineArguments"></value>
     <value type="QString" key="Qt4ProjectManager.Qt4RunConfiguration.ProFile">PI-Client-V1.pro</value>
@@ -179,7 +179,7 @@
  </data>
  <data>
   <variable>ProjectExplorer.Project.Updater.EnvironmentId</variable>
-  <value type="QString">{3eed21d3-0f58-4c55-ba55-b20789aff6a4}</value>
+  <value type="QString">{5f0e6933-489f-4a4b-bc8d-71a8d6fb7669}</value>
  </data>
  <data>
   <variable>ProjectExplorer.Project.Updater.FileVersion</variable>
