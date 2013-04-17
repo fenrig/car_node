@@ -43,7 +43,7 @@ void linefollowingthread::run(){
         qDebug() << i << ": " << msg[0] << ":" << msg[1];
         //pic.close();
 
-        //s->send(msg,2);
+        s->send(msg,2);
     }
     /*
     forever{
