@@ -59,6 +59,15 @@ Mat FindLine::WhiteFilter(const Mat& src)
 
     return whiteOnly;
 }
+Mat FindLine::RedFilter(const Mat& src)
+{
+    assert(src.type() == CV_8UC3);
+    Mat redOnly;
+    inRange(src,Scalar(0,255,204),Scalar(0,255,255),redOnly);
+
+    return redOnly;
+}
+
 offsets FindLine::FindOffset(std::vector<char> data, int teller)
 {
     offsets offset;
@@ -71,15 +80,23 @@ offsets FindLine::FindOffset(std::vector<char> data, int teller)
         vector<int> compression_params;
         compression_params.push_back(CV_IMWRITE_JPEG_QUALITY);
         compression_params.push_back(95);
+        /*
+         *Debug
+         */
         /*QString Path = "/home/dries/Documenten/Project2/PI code/DebuggingCarCode/TestPictures/origineel" + QString::number(teller) + ".jpg";
         QByteArray ba = Path.toLocal8Bit();
-        const char *PathChar = ba.data(); */
-        //imwrite(PathChar, img, compression_params);
+        const char *PathChar = ba.data();
+        imwrite(PathChar, img, compression_params); */
+        /*
+         *End
+         */
         //crop image
         cv::Rect myROI(0, 100, 320, 10); //start position x:0 y:250 || size x:320 y:10
         img = img(myROI);
         //filteren op witte kleur
-        img = FindLine::WhiteFilter(img);
+        //img = FindLine::WhiteFilter(img);
+        //filteren op rode kleur
+        img = FindLine::RedFilter(img);
         /*
          *Debug
          */
