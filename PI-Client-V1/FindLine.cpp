@@ -84,10 +84,11 @@ offsets FindLine::FindOffset(std::vector<char> data, int teller)
         /*
          *Debug
          */
-        /*QString Path = "/home/dries/Documenten/Project2/PI code/DebuggingCarCode/TestPictures/origineel" + QString::number(teller) + ".jpg";
+        //QString Path = "/home/dries/Documenten/Project2/PI code/DebuggingCarCode/TestPictures/origineel" + QString::number(teller) + ".jpg";
+        QString Path = "/root/pics/origineel" + QString::number(teller) + ".jpg";
         QByteArray ba = Path.toLocal8Bit();
         const char *PathChar = ba.data();
-        imwrite(PathChar, img, compression_params); */
+        imwrite(PathChar,img, compression_params);
         /*
          *End
          */
@@ -100,11 +101,11 @@ offsets FindLine::FindOffset(std::vector<char> data, int teller)
         /*
          *Debug
          */
-        //QString Path2 = "/home/dries/Documenten/Project2/PI code/DebuggingCarCode/TestPictures/filtered2-" + QString::number(teller) + ".jpg";
+        /*QString Path = "/home/dries/Documenten/Project2/PI code/DebuggingCarCode/TestPictures/filtered2-" + QString::number(teller) + ".jpg";
         QString Path = "/root/pics/origineel" + QString::number(teller) + ".jpg";
         QByteArray ba = Path.toLocal8Bit();
         const char *PathChar = ba.data();
-        imwrite(PathChar,img, compression_params);
+        imwrite(PathChar,img, compression_params); */
         /*
          *End
          */
@@ -112,8 +113,8 @@ offsets FindLine::FindOffset(std::vector<char> data, int teller)
         /*
          *Debug
          */
-        //QString Path2 = "/home/dries/Documenten/Project2/PI code/DebuggingCarCode/TestPictures/filtered2-" + QString::number(teller) + ".jpg";
-        QString Path2 = "/root/pics/test" + QString::number(teller) + ".jpg";
+        QString Path2 = "/home/dries/Documenten/Project2/PI code/DebuggingCarCode/TestPictures/filtered2-" + QString::number(teller) + ".jpg";
+        //QString Path2 = "/root/pics/test" + QString::number(teller) + ".jpg";
         QByteArray ba2 = Path2.toLocal8Bit();
         const char *PathChar2 = ba2.data();
         imwrite(PathChar2,img, compression_params);

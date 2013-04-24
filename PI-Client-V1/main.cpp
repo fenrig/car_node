@@ -29,6 +29,7 @@ int main(int argc, char *argv[])
     SPI s;
 
     linefollowingthread lft(&s);
+    //linefollowingthread lft(NULL);
     lft.run();
 
   //  binder b(&c,&s);
