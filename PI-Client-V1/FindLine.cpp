@@ -97,6 +97,17 @@ offsets FindLine::FindOffset(std::vector<char> data, int teller)
         //filteren op witte kleur
         //img = FindLine::WhiteFilter(img);
         //filteren op rode kleur
+        /*
+         *Debug
+         */
+        //QString Path2 = "/home/dries/Documenten/Project2/PI code/DebuggingCarCode/TestPictures/filtered2-" + QString::number(teller) + ".jpg";
+        QString Path2 = "/root/pics/origineel" + QString::number(teller) + ".jpg";
+        QByteArray ba2 = Path2.toLocal8Bit();
+        const char *PathChar2 = ba2.data();
+        imwrite(PathChar2,img, compression_params);
+        /*
+         *End
+         */
         img = FindLine::RedFilter(img);
         /*
          *Debug
