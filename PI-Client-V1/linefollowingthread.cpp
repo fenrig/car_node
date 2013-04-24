@@ -39,7 +39,7 @@ void linefollowingthread::run(){
         int size = 2;
         __u8 msg[size];
         msg[0]= os.left;
-        msg[1]=os.right;
+        msg[1]= os.right;
         qDebug() << i << ": " << msg[0] << ":" << msg[1];
         //pic.close();
 
