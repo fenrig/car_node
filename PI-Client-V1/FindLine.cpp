@@ -63,6 +63,7 @@ Mat FindLine::RedFilter(const Mat& src)
 {
     assert(src.type() == CV_8UC3);
     Mat redOnly;
+    cvtColor(src,src,CV_BGR2HSV);
     inRange(src,Scalar(0,255,204),Scalar(0,255,255),redOnly);
 
     return redOnly;
@@ -101,7 +102,7 @@ offsets FindLine::FindOffset(std::vector<char> data, int teller)
          *Debug
          */
         //QString Path2 = "/home/dries/Documenten/Project2/PI code/DebuggingCarCode/TestPictures/filtered2-" + QString::number(teller) + ".jpg";
-        QString Path2 = "~/pics/" +QString::number(teller) + ".jpg";
+        QString Path2 = "~/pics/" + QString::number(teller) + ".jpg";
         QByteArray ba2 = Path2.toLocal8Bit();
         const char *PathChar2 = ba2.data();
         imwrite(PathChar2,img, compression_params);
