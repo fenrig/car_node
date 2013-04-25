@@ -24,8 +24,8 @@ int main(int argc, char *argv[])
 {
     QCoreApplication a(argc, argv);
 
-  //  tcp_client c;
-  //  c.connectToServer();
+    //tcp_client c;
+    //c.connectToServer();
     SPI s;
 
     linefollowingthread lft(&s);

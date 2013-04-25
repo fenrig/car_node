@@ -20,10 +20,10 @@ void linefollowingthread::run(){
     for(int i=0;i<11;i++)
     {
         std::vector<char> data = cam.GetPicture();
-        //std::vector<char> data;
-        //QFile pic("/home/dries/Documenten/Project2/PI code/TestPictures/origineel" + QString::number(i) + ".jpg");
-
-        /*if (!pic.open(QIODevice::ReadOnly)){
+        /*Debug
+         *std::vector<char> data;
+        QFile pic("/home/dries/Documenten/Project2/PI code/picsred/origineel" + QString::number(i) + ".jpg");
+        if (!pic.open(QIODevice::ReadOnly)){
             return;
         }
         char incomingbyte;
@@ -31,7 +31,9 @@ void linefollowingthread::run(){
 
             pic.read(&incomingbyte,1);
             data.push_back(incomingbyte);
-        } */
+        }
+        *Einde
+        */
         //
         os = fl.FindOffset(data,i);
         int size = 2;
