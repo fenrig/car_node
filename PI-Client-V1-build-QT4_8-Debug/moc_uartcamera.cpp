@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'uartcamera.h'
 **
-** Created: Thu Apr 4 14:19:54 2013
+** Created: Fri May 3 16:46:15 2013
 **      by: The Qt Meta Object Compiler version 63 (Qt 4.8.4)
 **
 ** WARNING! All changes made in this file will be lost!

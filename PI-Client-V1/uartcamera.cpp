@@ -4,6 +4,7 @@
 #include <vector>
 
 #include <QFile>
+#include <QDebug>
 
 // Serial library
 //  https://code.google.com/p/qextserialport/downloads/detail?name=qextserialport-1.2rc.zip&can=1&q=
@@ -19,6 +20,8 @@
 #define DATARATE_low 0x00
 
 #define DATARATE (((DATARATE_high)<<8) + DATARATE_low)
+
+#define sleeptime_ms 20
 
 UartCamera::UartCamera(QObject *parent) :
     QObject(parent), picpointer(0x0000)
@@ -79,7 +82,7 @@ void UartCamera::reset(void){
     resetcommand[3] = 0x00;
     port->write(resetcommand,4);
     port->flush();
-    while(port->bytesAvailable() < 4){;}
+    while(port->bytesAvailable() < 4){usleep(sleeptime_ms);}
     QByteArray answer = port->readAll();
     if(answer[0] == (char)0x76 && answer[1] == (char)0x00 &&
             answer[2] == (char)0x26 && answer[3] == (char)0x00){
@@ -101,7 +104,7 @@ void UartCamera::takePic(void){
     takepiccmd[4] = 0x00;
     port->write(takepiccmd,5);
     port->flush();
-    while(port->bytesAvailable() < 5){;}
+    while(port->bytesAvailable() < 5){usleep(sleeptime_ms);}
     QByteArray answer = port->readAll();
     if(answer[0] == (char)0x76 && answer[1] == (char)0x00 &&
             answer[2] == (char)0x36 && answer[3] == (char)0x00
@@ -157,6 +160,15 @@ std::vector<char> UartCamera::GetPicture(){
     takePic();
 
     std::vector<char> *vect = new std::vector<char>;
+
+    //test
+    QFile file("/root/pics/out.jpg");
+    if (!file.open(QIODevice::WriteOnly | QIODevice::Text))
+    {
+        qDebug() << "krijgt file niet open";
+    }
+    //test
+
     while(!EndFlag){
         k = j = 0;
         ReadData();
@@ -168,6 +180,7 @@ std::vector<char> UartCamera::GetPicture(){
 
                 if((k>5) && (j<DATARATE) && (!EndFlag)){
                     vect->push_back(incomingbyte);
+                    file.write(&incomingbyte);
                     data[j] = incomingbyte;
                     if((data[j-1] == 0xFF) && (data[j] == 0xD9)) EndFlag = true;
                     j++;
@@ -180,6 +193,7 @@ std::vector<char> UartCamera::GetPicture(){
     while(port->bytesAvailable() > 0){
         port->read(&incomingbyte, 1);
     }
+    file.close();
     return *vect;
 }
 
@@ -193,7 +207,7 @@ unsigned short int UartCamera::FileSize(void){
     filesizecmd[4] = 0x00;
     port->write(filesizecmd,5);
     port->flush();
-    while(port->bytesAvailable() < 9){;}
+    while(port->bytesAvailable() < 9){usleep(sleeptime_ms);}
     QByteArray answer = port->readAll();
     if(answer[0] == (char)0x76 && answer[1] == (char)0x00 &&
             answer[2] == (char)0x34 && answer[3] == (char)0x00 &&
@@ -249,7 +263,7 @@ void UartCamera::changeTransferSpeed(BaudRateType baud){
     port->write(filesizecmd,7);
     port->flush();
 
-    while(port->bytesAvailable() < 5){;}
+    while(port->bytesAvailable() < 5){usleep(sleeptime_ms);}
     QByteArray answer = port->readAll();
     if(answer[0] == (char)0x76 && answer[1] == (char)0x00 &&
             answer[2] == (char)0x24 && answer[3] == (char)0x00 &&
@@ -280,7 +294,7 @@ void UartCamera::changeSizeRST(int size){
         case (320*240):
             picsizerstcmd[8] = 0x11;
             break;
-        case (160*120):
+        case (160*120):;
             picsizerstcmd[8] = 0x22;
             break;
         default:
@@ -289,7 +303,7 @@ void UartCamera::changeSizeRST(int size){
     }
     port->write(picsizerstcmd,9);
     port->flush();
-    while(port->bytesAvailable() < 5){;}
+    while(port->bytesAvailable() < 5){usleep(sleeptime_ms);}
     QByteArray answer = port->readAll();
     //76 00 54 00 00 //aangepast
     if(answer[0] == (char)0x76 && answer[1] == (char)0x00 &&
@@ -323,9 +337,9 @@ void UartCamera::changeSize(int size){
             return;
             break;
     }
-    port->write(picsizecmd,5); //aangepast
+    port->write(picsizecmd,5); //aangepast;
     port->flush();
-    while(port->bytesAvailable() < 5){;}
+    while(port->bytesAvailable() < 5){usleep(sleeptime_ms);}
     QByteArray answer = port->readAll();
     //76 00 54 00 00 //aangepast
     if(answer[0] == (char)0x76 && answer[1] == (char)0x00 &&
@@ -355,7 +369,7 @@ void UartCamera::stopTakingPic(void){
     stoppiccmd[4] = 0x03;
     port->write(stoppiccmd,5);
     port->flush();
-    while(port->bytesAvailable() < 5){;}
+    while(port->bytesAvailable() < 5){usleep(sleeptime_ms);}
     QByteArray answer = port->readAll();
     if(answer[0] == (char)0x76 && answer[1] == (char)0x00 &&
             answer[2] == (char)0x36 && answer[3] == (char)0x00 &&
@@ -387,7 +401,7 @@ void UartCamera::changeCompression(int size){
     changecompressioncmd[8] = (char)size;
     port->write(changecompressioncmd,9);
     port->flush();
-    while((port->bytesAvailable()) < 5){;}
+    while((port->bytesAvailable()) < 5){usleep(sleeptime_ms);}
     QByteArray answer = port->readAll();
     if(answer[0] == (char)0x76 && answer[1] == (char)0x00 &&
             answer[2] == (char)0x31 && answer[3] == (char)0x00 &&
@@ -397,4 +411,9 @@ void UartCamera::changeCompression(int size){
         qDebug() << "Compression not changed";
     }
     // 56 00 31 0 01 01 12 04 XX
+}
+
+UartCamera::~UartCamera(){
+    port->close();
+    free(port);
 }

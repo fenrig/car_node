@@ -3,6 +3,7 @@
 #include "spi.h"
 #include "binder.h"
 #include "linefollowingthread.h"
+#include "signal_handler.h"
 
 #include <QtTest/QTest>
 #include <QDebug>
@@ -20,10 +21,33 @@
  *  http://www.raspberrypi.org/phpBB3/viewtopic.php?p=132128
  */
 
+static int setup_unix_signal_handlers(){
+    struct sigaction hup, term;
+
+    /*
+    hup.sa_handler = MyDaemon::hupSignalHandler;
+    sigemptyset(&hup.sa_mask);
+    hup.sa_flags = 0;
+    hup.sa_flags |= SA_RESTART;
+
+    if (sigaction(SIGHUP, &hup, 0) > 0)
+       return 1;
+    */
+
+    term.sa_handler = MyDaemon::termSignalHandler;
+    sigemptyset(&term.sa_mask);
+    term.sa_flags |= SA_RESTART;
+
+    if (sigaction(SIGTERM, &term, 0) > 0)
+       return 2;
+
+    return 0;
+}
+
 int main(int argc, char *argv[])
 {
     QCoreApplication a(argc, argv);
-
+    setup_unix_signal_handlers();
     //tcp_client c;
     //c.connectToServer();
     SPI s;

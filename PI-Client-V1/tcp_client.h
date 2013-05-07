@@ -11,6 +11,7 @@ class tcp_client : public QObject
     Q_OBJECT
 public:
     tcp_client(QObject *parent = 0);
+    ~tcp_client();
     void connectToServer();
     void write_data(QByteArray *buffer);
 signals:

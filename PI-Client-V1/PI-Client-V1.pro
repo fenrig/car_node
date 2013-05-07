@@ -23,7 +23,8 @@ SOURCES += main.cpp \
     binder.cpp \
     FindLine.cpp \
     linefollowingthread.cpp \
-    uartcamera.cpp
+    uartcamera.cpp \
+    signal_handler.cpp
 
 HEADERS += \
     tcp_client.h \
@@ -31,7 +32,8 @@ HEADERS += \
     binder.h \
     FindLine.h \
     linefollowingthread.h \
-    uartcamera.h
+    uartcamera.h \
+    signal_handler.h
 
 #Laptop Dries
 INCLUDEPATH += /home/dries/OpenCV/OpenCV-2.4.3/build/include

@@ -66,6 +66,10 @@ void tcp_client::connectToServer(){
     socket->connectToHost(UDP_Server_Discovery(), 666);
 }
 
+tcp_client::~tcp_client(){
+    socket->close();
+}
+
 QString tcp_client::UDP_Server_Discovery(){
     printf("[INFO] Initiating UDP Discover\n");
     // Om ip adressen te ontdekken

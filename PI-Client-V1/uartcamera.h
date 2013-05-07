@@ -13,6 +13,7 @@ class UartCamera : public QObject
     int picpointer;
 public:
     explicit UartCamera(QObject *parent = 0);
+    ~UartCamera();
     std::vector<char> GetPicture();
     void changeSize(int size);
     void changeSizeRST(int size);
