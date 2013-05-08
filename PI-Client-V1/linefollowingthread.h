@@ -11,6 +11,8 @@ class linefollowingthread : public QThread
 public:
     explicit linefollowingthread(SPI* x,QObject *parent = 0);
     void run();
+
+    bool stop;
 private:
     SPI* s;
 signals:

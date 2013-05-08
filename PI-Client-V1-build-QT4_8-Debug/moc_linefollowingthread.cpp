@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'linefollowingthread.h'
 **
-** Created: Wed May 8 10:21:41 2013
+** Created: Wed May 8 11:48:44 2013
 **      by: The Qt Meta Object Compiler version 63 (Qt 4.8.4)
 **
 ** WARNING! All changes made in this file will be lost!

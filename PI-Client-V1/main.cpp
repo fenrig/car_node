@@ -26,6 +26,7 @@ int setup_unix_signal_handlers(void){
     struct sigaction term;
 
     term.sa_handler = signal_handler::termSignalHandler;
+    //term.sa_handler = QCoreApplication::exit;
 
     sigemptyset(&term.sa_mask);
     term.sa_flags |= SA_RESTART;
@@ -39,15 +40,16 @@ int setup_unix_signal_handlers(void){
 int main(int argc, char *argv[])
 {
     QCoreApplication a(argc, argv);
-    signal_handler sh;
-    //setup_unix_signal_handlers();
+
     //tcp_client c;
     //c.connectToServer();
-    SPI s;
-
-    linefollowingthread lft(&s);
+    //SPI s;
+    SPI *s = NULL;
+    linefollowingthread lft(NULL);
     //linefollowingthread lft(NULL);
-    lft.run();
+    signal_handler sh(&lft.stop);
+    setup_unix_signal_handlers();
+    lft.start();
 
   //  binder b(&c,&s);
 
@@ -58,6 +60,6 @@ int main(int argc, char *argv[])
         QTest::qSleep(50);
     }
     */
-
+    qDebug() << "events?";
     return a.exec();
 }

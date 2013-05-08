@@ -7,9 +7,9 @@
 
 #include "QFile"
 linefollowingthread::linefollowingthread(SPI* x, QObject *parent) :
-    QThread(parent)
+    QThread(parent), stop(false), s(x)
 {
-    s = x;
+
 }
 
 void linefollowingthread::run(){
@@ -44,6 +44,8 @@ void linefollowingthread::run(){
         //pic.close();
 
         s->send(msg,2);
+
+        if(stop) return;
     }
     /*
     forever{

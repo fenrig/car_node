@@ -14,11 +14,12 @@
 #include <netinet/in.h>
 
 #include <QDebug>
+#include <QTimer>
 
 int signal_handler::sigtermFd[2];
 
-signal_handler::signal_handler(QObject *parent, const char *name) :
-    QObject(parent)
+signal_handler::signal_handler(bool *stop, QObject *parent, const char *name) :
+    QObject(parent), ptrthreadstop(stop)
 {
     //if (::socketpair(AF_UNIX, SOCK_STREAM, 0, sighupFd))
      //  qFatal("Couldn't create HUP socketpair");
@@ -33,9 +34,8 @@ signal_handler::signal_handler(QObject *parent, const char *name) :
 
 void signal_handler::termSignalHandler(int){
     char a = 1;
-    qDebug() << "termsignalhandler";
-
     write(sigtermFd[0], &a, sizeof(a));
+    //QTimer::singleShot(50,this,SLOT(handleSigTerm()));
 }
 
 void signal_handler::handleSigTerm(){
@@ -46,6 +46,8 @@ void signal_handler::handleSigTerm(){
     read(sigtermFd[1], &tmp, sizeof(tmp));
 
     // ----- activate end
+    *ptrthreadstop = true;
+    usleep(500);
     QCoreApplication::quit();
     //
     snTerm->setEnabled(true);
