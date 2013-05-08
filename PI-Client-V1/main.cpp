@@ -45,7 +45,7 @@ int main(int argc, char *argv[])
     //c.connectToServer();
     SPI s;
     linefollowingthread lft(&s);
-    signal_handler sh(&lft.stop);
+    signal_handler sh(&lft);
     setup_unix_signal_handlers();
     lft.start();
 
