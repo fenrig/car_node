@@ -8,6 +8,7 @@
 #include <QtTest/QTest>
 #include <QDebug>
 #include <QTime>
+#include <signal.h>
 //#include <QThread>
 
 /* Socket:
@@ -21,25 +22,16 @@
  *  http://www.raspberrypi.org/phpBB3/viewtopic.php?p=132128
  */
 
-static int setup_unix_signal_handlers(){
-    struct sigaction hup, term;
+int setup_unix_signal_handlers(void){
+    struct sigaction term;
 
-    /*
-    hup.sa_handler = MyDaemon::hupSignalHandler;
-    sigemptyset(&hup.sa_mask);
-    hup.sa_flags = 0;
-    hup.sa_flags |= SA_RESTART;
+    term.sa_handler = signal_handler::termSignalHandler;
 
-    if (sigaction(SIGHUP, &hup, 0) > 0)
-       return 1;
-    */
-
-    term.sa_handler = MyDaemon::termSignalHandler;
     sigemptyset(&term.sa_mask);
     term.sa_flags |= SA_RESTART;
 
-    if (sigaction(SIGTERM, &term, 0) > 0)
-       return 2;
+    if(sigaction(SIGINT, &term, 0) > 0)
+        return 2;
 
     return 0;
 }
@@ -47,7 +39,8 @@ static int setup_unix_signal_handlers(){
 int main(int argc, char *argv[])
 {
     QCoreApplication a(argc, argv);
-    setup_unix_signal_handlers();
+    signal_handler sh;
+    //setup_unix_signal_handlers();
     //tcp_client c;
     //c.connectToServer();
     SPI s;

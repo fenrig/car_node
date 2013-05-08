@@ -5,6 +5,9 @@
 #include <QObject>
 #include <QSocketNotifier>
 
+
+//static int setup_unix_signal_handlers(void);
+
 class signal_handler : public QObject
 {
     Q_OBJECT
@@ -17,7 +20,7 @@ public slots:
     // QT signal handlers
     void handleSigTerm();
 
-private:
+public:
     static int sigtermFd[2];
     QSocketNotifier *snTerm;
     
