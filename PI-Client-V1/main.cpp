@@ -43,10 +43,8 @@ int main(int argc, char *argv[])
 
     //tcp_client c;
     //c.connectToServer();
-    //SPI s;
-    SPI *s = NULL;
-    linefollowingthread lft(NULL);
-    //linefollowingthread lft(NULL);
+    SPI s;
+    linefollowingthread lft(&s);
     signal_handler sh(&lft.stop);
     setup_unix_signal_handlers();
     lft.start();

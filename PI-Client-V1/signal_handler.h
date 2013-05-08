@@ -13,7 +13,7 @@ class signal_handler : public QObject
 {
     Q_OBJECT
 public:
-    explicit signal_handler(bool *stop, QObject *parent = 0, const char *name = 0);
+    explicit signal_handler(QThread *thread, QObject *parent = 0, const char *name = 0);
     // Unix signal handlers
     static void termSignalHandler(int unused);
 
@@ -24,7 +24,8 @@ public slots:
 private:
     static int sigtermFd[2];
     QSocketNotifier *snTerm;
-    bool* ptrthreadstop;
+    //bool* ptrthreadstop;
+    QThread *threadptr;
     
 };
 

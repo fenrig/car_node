@@ -15,11 +15,12 @@
 
 #include <QDebug>
 #include <QTimer>
+#include <QThread>
 
 int signal_handler::sigtermFd[2];
 
-signal_handler::signal_handler(bool *stop, QObject *parent, const char *name) :
-    QObject(parent), ptrthreadstop(stop)
+signal_handler::signal_handler(/*bool *stop,*/QThread *thread, QObject *parent, const char *name) :
+    QObject(parent), threadptr(thread) //, ptrthreadstop(stop)
 {
     //if (::socketpair(AF_UNIX, SOCK_STREAM, 0, sighupFd))
      //  qFatal("Couldn't create HUP socketpair");
@@ -44,9 +45,10 @@ void signal_handler::handleSigTerm(){
     char tmp;
 
     read(sigtermFd[1], &tmp, sizeof(tmp));
-
+    threadptr->terminate();
     // ----- activate end
-    *ptrthreadstop = true;
+    //*ptrthreadstop = true;
+
     usleep(500);
     QCoreApplication::quit();
     //
