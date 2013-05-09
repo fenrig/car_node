@@ -5,9 +5,9 @@
 #include "linefollowingthread.h"
 #include "signal_handler.h"
 
-#include <QtTest/QTest>
+//#include <QtTest/QTest>
 #include <QDebug>
-#include <QTime>
+//#include <QTime>
 #include <signal.h>
 //#include <QThread>
 

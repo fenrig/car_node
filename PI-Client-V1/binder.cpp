@@ -1,12 +1,12 @@
 #include "binder.h"
 #include <tcp_client.h>
-#include <spi.h>
-#include <cstdio>
+//#include <spi.h>
+//#include <cstdio>
 #include <QMap>
-#include <QDebug>
+//#include <QDebug>
 
-binder::binder(tcp_client *tcp_x, SPI *spi_x, QObject *parent) :
-    QObject(parent), tcp(tcp_x), spi(spi_x)
+binder::binder(tcp_client *tcp_x/*, SPI *spi_x*/, QObject *parent) :
+    QObject(parent), tcp(tcp_x)//, spi(spi_x)
 {
     instructions["forward"] = (unsigned char)1;
     instructions["backward"] = (unsigned char)2;

@@ -5,17 +5,17 @@
 #include <QMap>
 
 class tcp_client;
-class SPI;
+// class SPI;
 
 class binder : public QObject
 {
     Q_OBJECT
 //private:
     tcp_client *tcp;
-    SPI *spi;
+    // SPI *spi;
     QMap<QString, unsigned char> instructions;
 public:
-    binder(tcp_client *tcp_x, SPI *spi_x, QObject *parent = 0);
+    binder(tcp_client *tcp_x/*, SPI *spi_x*/, QObject *parent = 0);
 signals:
 public slots:
     void parseTCPmsg(QString msg);

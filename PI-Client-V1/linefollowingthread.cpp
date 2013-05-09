@@ -52,6 +52,7 @@ void linefollowingthread::run(){
         //pic.close();
 
         s->send(msg,2);
+
         mutex->lock();
         if(blstop == true) return;
         mutex->unlock();

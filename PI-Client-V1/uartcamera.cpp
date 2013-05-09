@@ -3,8 +3,7 @@
 #include <unistd.h>
 #include <vector>
 
-#include <QFile>
-#include <QDebug>
+// #include <QFile>
 
 // Serial library
 //  https://code.google.com/p/qextserialport/downloads/detail?name=qextserialport-1.2rc.zip&can=1&q=
@@ -82,7 +81,9 @@ void UartCamera::reset(void){
     resetcommand[3] = 0x00;
     port->write(resetcommand,4);
     port->flush();
-    while(port->bytesAvailable() < 4){usleep(sleeptime_ms);}
+    while(port->bytesAvailable() < 4){
+        usleep(sleeptime_ms);
+    }
     QByteArray answer = port->readAll();
     if(answer[0] == (char)0x76 && answer[1] == (char)0x00 &&
             answer[2] == (char)0x26 && answer[3] == (char)0x00){
@@ -161,6 +162,7 @@ std::vector<char> UartCamera::GetPicture(){
 
     std::vector<char> *vect = new std::vector<char>;
 
+    /*
     //test
     QFile file("/root/pics/out.jpg");
     if (!file.open(QIODevice::WriteOnly | QIODevice::Text))
@@ -168,6 +170,7 @@ std::vector<char> UartCamera::GetPicture(){
         qDebug() << "krijgt file niet open";
     }
     //test
+    */
 
     while(!EndFlag){
         k = j = 0;
@@ -180,7 +183,7 @@ std::vector<char> UartCamera::GetPicture(){
 
                 if((k>5) && (j<DATARATE) && (!EndFlag)){
                     vect->push_back(incomingbyte);
-                    file.write(&incomingbyte);
+                    //file.write(&incomingbyte);
                     data[j] = incomingbyte;
                     if((data[j-1] == 0xFF) && (data[j] == 0xD9)) EndFlag = true;
                     j++;
@@ -193,7 +196,7 @@ std::vector<char> UartCamera::GetPicture(){
     while(port->bytesAvailable() > 0){
         port->read(&incomingbyte, 1);
     }
-    file.close();
+    //file.close();
     return *vect;
 }
 

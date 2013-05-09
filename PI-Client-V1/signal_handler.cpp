@@ -1,20 +1,12 @@
 #include "signal_handler.h"
 #include <QSocketNotifier>
-#include <QUdpSocket>
 #include "signal.h"
-#include <netinet/in.h>
 #include <QCoreApplication>
 
-#include <stdio.h>
 #include <unistd.h>
-#include <stdlib.h>
-#include <string.h>
-#include <sys/types.h>
 #include <sys/socket.h>
-#include <netinet/in.h>
 
 #include <QDebug>
-#include <QTimer>
 #include <linefollowingthread.h>
 
 int signal_handler::sigtermFd[2];

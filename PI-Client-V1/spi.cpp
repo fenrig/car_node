@@ -5,9 +5,9 @@
 
 #include <stdio.h>
 #include <unistd.h>
-#include <stdlib.h>
+//#include <stdlib.h>
 #include <fcntl.h>
-#include <string.h>
+//#include <string.h>
 
 #include <sys/ioctl.h>
 #include <sys/types.h>
