@@ -25,6 +25,7 @@ void linefollowingthread::run(){
     offsets os;
     UartCamera cam;
     cam.changeCompression(255);
+    int i = 0;
     //for(int i=0;i<11;i++)
     forever
     {
@@ -52,6 +53,7 @@ void linefollowingthread::run(){
        // msg[0] = 125;
        // msg[1] = 125;
         qDebug() << i << ": " << msg[0] << ":" << msg[1];
+        i++;
         //pic.close();
 
         s->send(msg,2);
