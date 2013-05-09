@@ -6,7 +6,6 @@
 #include <unistd.h>
 #include <sys/socket.h>
 
-#include <QDebug>
 #include <linefollowingthread.h>
 
 int signal_handler::sigtermFd[2];
@@ -14,8 +13,6 @@ int signal_handler::sigtermFd[2];
 signal_handler::signal_handler(linefollowingthread *thread, QObject *parent, const char *name) :
     QObject(parent), threadptr(thread) //, ptrthreadstop(stop)
 {
-    //if (::socketpair(AF_UNIX, SOCK_STREAM, 0, sighupFd))
-     //  qFatal("Couldn't create HUP socketpair");
 
     if (socketpair(AF_UNIX, SOCK_STREAM, 0, sigtermFd))
        qFatal("Couldn't create TERM socketpair");
@@ -32,7 +29,6 @@ void signal_handler::termSignalHandler(int){
 }
 
 void signal_handler::handleSigTerm(){
-    printf("handlesigterm\n");
     snTerm->setEnabled(false);
     char tmp;
 

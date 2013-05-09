@@ -46,8 +46,10 @@ void linefollowingthread::run(){
         os = fl.FindOffset(data,i);
         int size = 2;
         __u8 msg[size];
-        msg[0]= os.left;
-        msg[1]= os.right;
+       // msg[0]= os.left;
+       // msg[1]= os.right;
+        msg[0] = 125;
+        msg[1] = 125;
         qDebug() << i << ": " << msg[0] << ":" << msg[1];
         //pic.close();
 
