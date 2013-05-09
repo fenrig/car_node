@@ -4,12 +4,20 @@
 #include "QDebug"
 #include "uartcamera.h"
 #include "vector"
+#include "QMutex"
 
 #include "QFile"
-linefollowingthread::linefollowingthread(SPI* x, QObject *parent) :
-    QThread(parent)/*, stop(false)*/, s(x)
-{
 
+linefollowingthread::linefollowingthread(SPI* x, QObject *parent) :
+    QThread(parent), blstop(false), s(x)
+{
+    mutex = new QMutex();
+}
+
+void linefollowingthread::stop(void){
+    mutex->lock();
+    blstop = true;
+    mutex->unlock();
 }
 
 void linefollowingthread::run(){
@@ -44,7 +52,9 @@ void linefollowingthread::run(){
         //pic.close();
 
         s->send(msg,2);
-        //if(stop == true) return;
+        mutex->lock();
+        if(blstop == true) return;
+        mutex->unlock();
     }
     /*
     forever{
@@ -53,4 +63,8 @@ void linefollowingthread::run(){
         qDebug() << "send";
     }
     */
+}
+
+linefollowingthread::~linefollowingthread(){
+    free(mutex);
 }

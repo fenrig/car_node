@@ -415,6 +415,9 @@ void UartCamera::changeCompression(int size){
 
 UartCamera::~UartCamera(){
     qDebug() << "destruct";
+    usleep(100);
+    port->readAll();
+    reset();
     port->close();
     free(port);
 }

@@ -3,9 +3,9 @@
 #define SIGNAL_HANDLER_H
 
 #include <QObject>
-#include <QSocketNotifier>
 
-
+class QSocketNotifier;
+class linefollowingthread;
 
 //static int setup_unix_signal_handlers(void);
 
@@ -13,7 +13,7 @@ class signal_handler : public QObject
 {
     Q_OBJECT
 public:
-    explicit signal_handler(QThread *thread, QObject *parent = 0, const char *name = 0);
+    explicit signal_handler(linefollowingthread *thread, QObject *parent = 0, const char *name = 0);
     // Unix signal handlers
     static void termSignalHandler(int unused);
 
@@ -25,7 +25,7 @@ private:
     static int sigtermFd[2];
     QSocketNotifier *snTerm;
     //bool* ptrthreadstop;
-    QThread *threadptr;
+    linefollowingthread *threadptr;
     
 };
 

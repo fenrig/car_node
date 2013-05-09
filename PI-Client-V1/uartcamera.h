@@ -2,8 +2,8 @@
 #define UARTCAMERA_H
 
 #include <QObject>
-#include <qextserialport.h>
 #include <vector>
+#include <qextserialport.h>
 
 class UartCamera : public QObject
 {

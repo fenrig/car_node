@@ -15,11 +15,11 @@
 
 #include <QDebug>
 #include <QTimer>
-#include <QThread>
+#include <linefollowingthread.h>
 
 int signal_handler::sigtermFd[2];
 
-signal_handler::signal_handler(/*bool *stop,*/QThread *thread, QObject *parent, const char *name) :
+signal_handler::signal_handler(linefollowingthread *thread, QObject *parent, const char *name) :
     QObject(parent), threadptr(thread) //, ptrthreadstop(stop)
 {
     //if (::socketpair(AF_UNIX, SOCK_STREAM, 0, sighupFd))
@@ -45,11 +45,14 @@ void signal_handler::handleSigTerm(){
     char tmp;
 
     read(sigtermFd[1], &tmp, sizeof(tmp));
-    threadptr->terminate();
+    threadptr->stop();
+
     // ----- activate end
     //*ptrthreadstop = true;
 
-    usleep(500);
+    while(threadptr->isRunning()){
+        usleep(50);
+    }
     QCoreApplication::quit();
     //
     snTerm->setEnabled(true);
