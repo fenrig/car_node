@@ -81,8 +81,18 @@ void UartCamera::reset(void){
     resetcommand[3] = 0x00;
     port->write(resetcommand,4);
     port->flush();
+    int counttimeout = 0;
     while(port->bytesAvailable() < 4){
         usleep(sleeptime_ms);
+        counttimeout++;
+        if(counttimeout == 10){
+            port->readAll();
+            port->close();
+            usleep(sleeptime_ms);
+            port->open(QIODevice::ReadWrite);
+            reset();
+            return;
+        }
     }
     QByteArray answer = port->readAll();
     if(answer[0] == (char)0x76 && answer[1] == (char)0x00 &&
