@@ -25,7 +25,8 @@ void linefollowingthread::run(){
     offsets os;
     UartCamera cam;
     cam.changeCompression(255);
-    for(int i=0;i<11;i++)
+    //for(int i=0;i<11;i++)
+    forever
     {
         std::vector<char> data = cam.GetPicture();
         /*Debug
