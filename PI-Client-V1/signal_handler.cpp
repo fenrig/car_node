@@ -37,9 +37,11 @@ void signal_handler::handleSigTerm(){
 
     // ----- activate end
     //*ptrthreadstop = true;
-
+    int countertimeout = 0;
     while(threadptr->isRunning()){
         usleep(50);
+        countertimeout++;
+        if(countertimeout == 200) break;
     }
     QCoreApplication::quit();
     //
