@@ -39,7 +39,7 @@ void signal_handler::handleSigTerm(){
     //*ptrthreadstop = true;
     int countertimeout = 0;
     while(threadptr->isRunning()){
-        usleep(50);
+        usleep(1000);
         countertimeout++;
         if(countertimeout == 200) break;
     }
