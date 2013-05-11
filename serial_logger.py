@@ -16,7 +16,8 @@ signal.signal(signal.SIGINT, signal_handler)
 
 while(True):
     line = ser.readline()
-    print(line)
-    fileobject.write(line)
+    if line != "":
+        sys.stdout.write(line)
+        fileobject.write(line)
 
 fileobject.close()
