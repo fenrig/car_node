@@ -46,6 +46,7 @@ void linefollowingthread::run(){
         Einde
         */
         //
+        /*
         QFile pic("/root/pics/matthias" + QString::number(i) + ".jpg");
         if(!pic.open(QIODevice::WriteOnly)){
             qDebug() << "ohnoes pic no open";
@@ -55,6 +56,7 @@ void linefollowingthread::run(){
             pic.write(&(*x));
         }
         pic.close();
+        */
         os = fl.FindOffset(data,i);
         int size = 2;
         __u8 msg[size];
