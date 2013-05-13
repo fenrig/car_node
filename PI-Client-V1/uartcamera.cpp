@@ -160,7 +160,7 @@ void UartCamera::ReadData(void){
     picpointer += DATARATE; // kk1kk2
 }
 
-std::vector<char> UartCamera::GetPicture(){
+std::vector<char>* UartCamera::GetPicture(){
 
     picpointer = 0;
     bool EndFlag = false;
@@ -204,7 +204,7 @@ std::vector<char> UartCamera::GetPicture(){
         timeout++;
         if(timeout > 100){
             vect->clear();
-            return *vect;
+            return vect;
         }
     }
 
@@ -213,7 +213,7 @@ std::vector<char> UartCamera::GetPicture(){
         port->read(&incomingbyte, 1);
     }
     //file.close();
-    return *vect;
+    return vect;
 }
 
 unsigned short int UartCamera::FileSize(void){

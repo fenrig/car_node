@@ -27,7 +27,7 @@ void linefollowingthread::run(){
     cam.changeCompression(255);
     int i = 0;
     //for(int i=0;i<11;i++)
-    std::vector<char> data;
+    std::vector<char> *data;
     forever
     {
         data = cam.GetPicture();
@@ -57,8 +57,8 @@ void linefollowingthread::run(){
         }
         pic.close();
         */
-        if(! data.empty() ){
-            os = fl.FindOffset(data,i);
+        if(! data->empty() ){
+            os = fl.FindOffset(*data,i);
             int size = 2;
             __u8 msg[size];
             msg[0]= os.left;

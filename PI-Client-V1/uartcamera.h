@@ -14,7 +14,7 @@ class UartCamera : public QObject
 public:
     explicit UartCamera(QObject *parent = 0);
     ~UartCamera();
-    std::vector<char> GetPicture();
+    std::vector<char>* GetPicture();
     void changeSize(int size);
     void changeSizeRST(int size);
     void changeCompression(int size);
