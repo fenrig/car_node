@@ -202,8 +202,9 @@ std::vector<char> UartCamera::GetPicture(){
             }
         }
         timeout++;
-        if(timeout > 500){
-            return NULL;
+        if(timeout > 100){
+            vect->clear();
+            return *vect;
         }
     }
 
