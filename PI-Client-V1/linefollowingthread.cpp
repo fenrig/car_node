@@ -69,7 +69,7 @@ void linefollowingthread::run(){
         //pic.close();
 
         s->send(msg,2);
-        data.clear();
+        //data.clear();
         mutex->lock();
         if(blstop == true) return;
         mutex->unlock();
