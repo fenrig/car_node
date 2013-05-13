@@ -71,7 +71,9 @@ void linefollowingthread::run(){
 
             s->send(msg,2);
             //data.clear();
+
         }
+        qDebug() << "-------------";
 
         mutex->lock();
         if(blstop == true) return;
