@@ -57,19 +57,22 @@ void linefollowingthread::run(){
         }
         pic.close();
         */
-        os = fl.FindOffset(data,i);
-        int size = 2;
-        __u8 msg[size];
-        msg[0]= os.left;
-        msg[1]= os.right;
-       // msg[0] = 125;
-       // msg[1] = 125;
-        qDebug() << i << ": " << msg[0] << ":" << msg[1];
-        i++;
-        //pic.close();
+        if(&data != NULL){
+            os = fl.FindOffset(data,i);
+            int size = 2;
+            __u8 msg[size];
+            msg[0]= os.left;
+            msg[1]= os.right;
+           // msg[0] = 125;
+           // msg[1] = 125;
+            qDebug() << i << ": " << msg[0] << ":" << msg[1];
+            i++;
+            //pic.close();
 
-        s->send(msg,2);
-        //data.clear();
+            s->send(msg,2);
+            //data.clear();
+        }
+
         mutex->lock();
         if(blstop == true) return;
         mutex->unlock();

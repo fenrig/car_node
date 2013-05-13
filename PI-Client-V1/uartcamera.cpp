@@ -164,7 +164,7 @@ std::vector<char> UartCamera::GetPicture(){
 
     picpointer = 0;
     bool EndFlag = false;
-    int k,j;
+    int k,j, timeout = 0;
     char incomingbyte;
     unsigned char data[DATARATE];
 
@@ -185,6 +185,7 @@ std::vector<char> UartCamera::GetPicture(){
     while(!EndFlag){
         k = j = 0;
         ReadData();
+        usleep(10);
         while((k < (10 + DATARATE)) /*&& !EndFlag */){
             //while(port->bytesAvailable() == 0 && !EndFlag){;}
             while(port->bytesAvailable() > 0){
@@ -199,6 +200,10 @@ std::vector<char> UartCamera::GetPicture(){
                     j++;
                 }
             }
+        }
+        timeout++;
+        if(timeout > 500){
+            return NULL;
         }
     }
 
