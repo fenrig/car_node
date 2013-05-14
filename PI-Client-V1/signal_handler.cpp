@@ -44,7 +44,7 @@ void signal_handler::handleSigTerm(){
         countertimeout++;
         if(countertimeout == 80) break;
     }
-    QCoreApplication::quit();
+    QCoreApplication::exit();
     //
     snTerm->setEnabled(true);
 }

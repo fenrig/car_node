@@ -94,4 +94,5 @@ void linefollowingthread::run(){
 
 linefollowingthread::~linefollowingthread(){
     free(mutex);
+    s = NULL;
 }
