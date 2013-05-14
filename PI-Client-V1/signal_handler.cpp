@@ -42,7 +42,7 @@ void signal_handler::handleSigTerm(){
     while(threadptr->isRunning()){
         QTest::qSleep(50);
         countertimeout++;
-        if(countertimeout == 40) break;
+        if(countertimeout == 80) break;
     }
     QCoreApplication::quit();
     //

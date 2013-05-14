@@ -76,6 +76,8 @@ void linefollowingthread::run(){
         }
         qDebug() << "-------------";
 
+        data->clear();
+
         mutex->lock();
         if(blstop == true) return;
         mutex->unlock();
