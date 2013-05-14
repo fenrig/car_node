@@ -36,7 +36,9 @@ void signal_handler::handleSigTerm(){
     char tmp;
 
     read(sigtermFd[1], &tmp, sizeof(tmp));
+    qDebug() << "before stop";
     threadptr->stop();
+    qDebug() << "after stop";
 
     // ----- activate end
     //*ptrthreadstop = true;
