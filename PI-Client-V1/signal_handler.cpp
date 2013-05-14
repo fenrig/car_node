@@ -32,7 +32,6 @@ void signal_handler::termSignalHandler(int){
 }
 
 void signal_handler::handleSigTerm(){
-    qDebug() << "OHnoes\n";
     snTerm->setEnabled(false);
     char tmp;
 

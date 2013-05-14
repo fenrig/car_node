@@ -4,8 +4,8 @@
 
 #include <QObject>
 
-class QSocketNotifier;
-class linefollowingthread;
+#include <QSocketNotifier>
+#include <linefollowingthread.h>
 
 //static int setup_unix_signal_handlers(void);
 
