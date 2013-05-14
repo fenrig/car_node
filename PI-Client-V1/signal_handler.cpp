@@ -27,6 +27,7 @@ signal_handler::signal_handler(linefollowingthread *thread, QObject *parent) :
 
 void signal_handler::termSignalHandler(int){
     char a = 1;
+    qDebug() << "OHnoes\n";
     write(sigtermFd[0], &a, sizeof(a));
     //QTimer::singleShot(50,this,SLOT(handleSigTerm()));
 }
@@ -36,9 +37,7 @@ void signal_handler::handleSigTerm(){
     char tmp;
 
     read(sigtermFd[1], &tmp, sizeof(tmp));
-    qDebug() << "before stop";
     threadptr->stop();
-    qDebug() << "after stop";
 
     // ----- activate end
     //*ptrthreadstop = true;
@@ -46,7 +45,6 @@ void signal_handler::handleSigTerm(){
     while(threadptr->isRunning()){
         QTest::qSleep(50);
         countertimeout++;
-        qDebug() << countertimeout;
         if(countertimeout == 80) break;
     }
     QCoreApplication::exit();
