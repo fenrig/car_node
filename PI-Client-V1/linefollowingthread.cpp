@@ -93,6 +93,6 @@ void linefollowingthread::run(){
 }
 
 linefollowingthread::~linefollowingthread(){
-    free(mutex);
+    delete(mutex);
     s = NULL;
 }
