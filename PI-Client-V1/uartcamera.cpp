@@ -25,8 +25,8 @@
 UartCamera::UartCamera(QObject *parent) :
     QObject(parent), picpointer(0x0000)
 {
-    //port = new QextSerialPort("/dev/ttyAMA0");//"/dev/ttyUSB0");
-    port = new QextSerialPort("/dev/ttyUSB0");
+    port = new QextSerialPort("/dev/ttyAMA0");//"/dev/ttyUSB0");
+    //port = new QextSerialPort("/dev/ttyUSB0");
     port->open(QIODevice::ReadWrite);
     if(port->isOpen()) qDebug() << "Opened Serial";
     else qDebug() << "Failed opening Serial";
