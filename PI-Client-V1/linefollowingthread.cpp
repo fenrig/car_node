@@ -70,13 +70,14 @@ void linefollowingthread::run(){
             i++;
             //pic.close();
 
-            //s->send(msg,2);
+            s->send(msg,2);
             //data.clear();
 
         }
         qDebug() << "-------------";
 
         data->clear();
+        delete(data);
 
         mutex->lock();
         if(blstop == true) return;
