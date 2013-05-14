@@ -69,10 +69,10 @@ Mat FindLine::RedFilter(const Mat& src)
     return redOnly;
 }
 
-offsets FindLine::FindOffset(std::vector<char> data, int teller)
+offsets FindLine::FindOffset(std::vector<char>* data, int teller)
 {
     offsets offset;
-    Mat img = Mat(data);
+    Mat img = Mat(*data);
     img = imdecode(img,1);
     //read img from path
     //img = FindLine::ReadImage();

@@ -59,7 +59,7 @@ void linefollowingthread::run(){
         pic.close();
         */
         if(! data->empty() ){
-            os = fl.FindOffset(*data,i);
+            os = fl.FindOffset(data,i);
             int size = 2;
             __u8 msg[size];
             msg[0]= os.left;
