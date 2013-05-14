@@ -27,12 +27,12 @@ signal_handler::signal_handler(linefollowingthread *thread, QObject *parent) :
 
 void signal_handler::termSignalHandler(int){
     char a = 1;
-    qDebug() << "OHnoes\n";
     write(sigtermFd[0], &a, sizeof(a));
     //QTimer::singleShot(50,this,SLOT(handleSigTerm()));
 }
 
 void signal_handler::handleSigTerm(){
+    qDebug() << "OHnoes\n";
     snTerm->setEnabled(false);
     char tmp;
 
