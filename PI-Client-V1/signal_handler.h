@@ -13,7 +13,7 @@ class signal_handler : public QObject
 {
     Q_OBJECT
 public:
-    explicit signal_handler(linefollowingthread *thread, QObject *parent = 0, const char *name = 0);
+    explicit signal_handler(linefollowingthread *thread, QObject *parent = 0);
     // Unix signal handlers
     static void termSignalHandler(int unused);
 

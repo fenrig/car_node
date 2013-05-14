@@ -42,7 +42,7 @@ void binder::parseTCPmsg(QString msg){
         sendvalue[1] = (unsigned char)255;
         spi->send(sendvalue,2);
     }
-    /*
+
     if(msg == QString("forward")){
         spi->send((unsigned char*)1);
         return;

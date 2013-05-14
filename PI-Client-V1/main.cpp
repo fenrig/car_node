@@ -45,6 +45,7 @@ int main(int argc, char *argv[])
     //c.connectToServer();
     SPI s;
     linefollowingthread lft(&s);
+    //linefollowingthread lft(NULL);
     signal_handler sh(&lft);
     setup_unix_signal_handlers();
     lft.start();
@@ -58,6 +59,6 @@ int main(int argc, char *argv[])
         QTest::qSleep(50);
     }
     */
-    qDebug() << "events?";
+    //qDebug() << "events?";
     return a.exec();
 }

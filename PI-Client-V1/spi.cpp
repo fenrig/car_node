@@ -87,7 +87,7 @@ void SPI::dumpstat(int channel){
 int SPI::setSPImode(void){
     struct spi_ioc_transfer spi;
     //channel &= 1 ;
-
+    spi.tx_buf        = (unsigned long)15 ;
      //spi.tx_buf        = (unsigned long)data ;
      //spi.rx_buf        = (unsigned long)data ;
      //spi.len           = len ;
@@ -95,7 +95,7 @@ int SPI::setSPImode(void){
      //spi.speed_hz      = spiSpeeds [channel] ;
      //spi.bits_per_word = spiBPW ;
 
-     //return ioctl (spiFds [channel], SPI_IOC_MESSAGE(1), &spi) ;
+     return ioctl (spiFds [0], SPI_IOC_MESSAGE(1), &spi) ;
     return 0;
 }
 

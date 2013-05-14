@@ -25,7 +25,8 @@
 UartCamera::UartCamera(QObject *parent) :
     QObject(parent), picpointer(0x0000)
 {
-    port = new QextSerialPort("/dev/ttyAMA0");//"/dev/ttyUSB0");
+    //port = new QextSerialPort("/dev/ttyAMA0");//"/dev/ttyUSB0");
+    port = new QextSerialPort("/dev/ttyUSB0");
     port->open(QIODevice::ReadWrite);
     if(port->isOpen()) qDebug() << "Opened Serial";
     else qDebug() << "Failed opening Serial";
@@ -85,14 +86,14 @@ void UartCamera::reset(void){
     while(port->bytesAvailable() < 4){
         usleep(sleeptime_ms);
         counttimeout++;
-        if(counttimeout == 10){
-            port->readAll();
-            port->close();
+        /*if(counttimeout == 10){
+            //port->readAll();
+            //port->close();
             usleep(sleeptime_ms);
-            port->open(QIODevice::ReadWrite);
+            //port->open(QIODevice::ReadWrite);
             reset();
             return;
-        }
+        }*/
     }
     QByteArray answer = port->readAll();
     if(answer[0] == (char)0x76 && answer[1] == (char)0x00 &&

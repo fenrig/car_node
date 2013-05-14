@@ -11,7 +11,7 @@
 
 int signal_handler::sigtermFd[2];
 
-signal_handler::signal_handler(linefollowingthread *thread, QObject *parent, const char *name) :
+signal_handler::signal_handler(linefollowingthread *thread, QObject *parent) :
     QObject(parent), threadptr(thread) //, ptrthreadstop(stop)
 {
 

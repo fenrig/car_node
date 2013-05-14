@@ -9,9 +9,10 @@
 #include "QFile"
 
 linefollowingthread::linefollowingthread(SPI* x, QObject *parent) :
-    QThread(parent), blstop(false), s(x)
+    QThread(parent), s(x)
 {
     mutex = new QMutex();
+    blstop = false;
 }
 
 void linefollowingthread::stop(void){
@@ -69,7 +70,7 @@ void linefollowingthread::run(){
             i++;
             //pic.close();
 
-            s->send(msg,2);
+            //s->send(msg,2);
             //data.clear();
 
         }
