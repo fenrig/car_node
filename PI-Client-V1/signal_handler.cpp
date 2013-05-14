@@ -9,6 +9,8 @@
 #include <linefollowingthread.h>
 #include <QTest>
 
+#include <QDebug>
+
 int signal_handler::sigtermFd[2];
 
 signal_handler::signal_handler(linefollowingthread *thread, QObject *parent) :
@@ -42,6 +44,7 @@ void signal_handler::handleSigTerm(){
     while(threadptr->isRunning()){
         QTest::qSleep(50);
         countertimeout++;
+        qDebug() << countertimeout;
         if(countertimeout == 80) break;
     }
     QCoreApplication::exit();
