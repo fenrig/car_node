@@ -5,7 +5,6 @@
 #include "uartcamera.h"
 #include "vector"
 #include "QMutex"
-
 #include "QFile"
 
 linefollowingthread::linefollowingthread(SPI* x, QObject *parent) :
@@ -22,6 +21,7 @@ void linefollowingthread::stop(void){
 }
 
 void linefollowingthread::run(){
+    qDebug("TEST");
     FindLine fl;
     offsets os;
     UartCamera cam;
@@ -29,59 +29,68 @@ void linefollowingthread::run(){
     int i = 0;
     //for(int i=0;i<11;i++)
     std::vector<char> *data;
-    forever
+    instruction = road.split(";", QString::SkipEmptyParts);
+    qDebug("TEST");
+    fl.rood=false;
+    fl.blauw=false;
+    fl.wit=false;
+    fl.links=false;
+    fl.rechts=false;
+    for(int teller=0;teller<instruction.length()-1;teller++)
     {
-        data = cam.GetPicture();
-        /*Debug
-        //std::vector<char> data;
-        QFile pic("/home/dries/Documenten/Project2/PI code/picsred/origineel" + QString::number(i) + ".jpg");
-        if (!pic.open(QIODevice::ReadOnly)){
-            return;
-        }
-        char incomingbyte;
-        while (!pic.atEnd()) {
+        fl.status=true;
+        while(fl.status==true)
+        {
+            data = cam.GetPicture();
+            /*Debug
+            //std::vector<char> data;
+            QFile pic("/home/dries/Documenten/Project2/PI code/picsred/origineel" + QString::number(i) + ".jpg");
+            if (!pic.open(QIODevice::ReadOnly)){
+                return;
+            }
+            char incomingbyte;
+            while (!pic.atEnd()) {
 
-            pic.read(&incomingbyte,1);
-            data.push_back(incomingbyte);
-        }
-        Einde
-        */
-        //
-        /*
-        QFile pic("/root/pics/matthias" + QString::number(i) + ".jpg");
-        if(!pic.open(QIODevice::WriteOnly)){
-            qDebug() << "ohnoes pic no open";
-            return;
-        }
-        for(std::vector<char>::iterator x = data.begin(); x != data.end(); ++x){
-            pic.write(&(*x));
-        }
-        pic.close();
-        */
-        if(! data->empty() ){
-            os = fl.FindOffset(data,i);
+                pic.read(&incomingbyte,1);
+                data.push_back(incomingbyte);
+            }
+            Einde
+            */
+            //
+            /*
+            QFile pic("/root/pics/matthias" + QString::number(i) + ".jpg");
+            if(!pic.open(QIODevice::WriteOnly)){
+                qDebug() << "ohnoes pic no open";
+                return;
+            }
+            for(std::vector<char>::iterator x = data.begin(); x != data.end(); ++x){
+                pic.write(&(*x));
+            }
+            pic.close();
+            */
             int size = 2;
             __u8 msg[size];
-            msg[0]= os.left;
-            msg[1]= os.right;
-           // msg[0] = 125;
-           // msg[1] = 125;
-            qDebug() << i << ": " << msg[0] << ":" << msg[1];
-            i++;
-            //pic.close();
+            if(! data->empty() ){
+                os = fl.FindOffset(data,i,instruction.at(teller),instruction.at(teller+1));
+                msg[0]= os.left;
+                msg[1]= os.right;
+               // msg[0] = 125;
+               // msg[1] = 125;
+                qDebug() << i << ": " << msg[0] << ":" << msg[1];
+                i++;
+                //pic.close();
+                //s->send(msg,2);
+                //data.clear();
+            }
+            qDebug() << "-------------";
 
-            s->send(msg,2);
-            //data.clear();
+            data->clear();
+            delete(data);
 
+            mutex->lock();
+            if(blstop == true) return;
+            mutex->unlock();
         }
-        qDebug() << "-------------";
-
-        data->clear();
-        delete(data);
-
-        mutex->lock();
-        if(blstop == true) return;
-        mutex->unlock();
     }
     /*
     forever{
@@ -90,6 +99,12 @@ void linefollowingthread::run(){
         qDebug() << "send";
     }
     */
+}
+
+void linefollowingthread::setRoad(QString roadmap)
+{
+    road = roadmap;
+    qDebug("TEST2");
 }
 
 linefollowingthread::~linefollowingthread(){

@@ -24,7 +24,12 @@ public:
     Mat ReadImage(void);
     Mat WhiteFilter(const Mat& src);
     Mat RedFilter(const Mat& src);
-    offsets FindOffset(std::vector<char>* data, int teller);
+    Mat BlueFilter(const Mat& src);
+    offsets FindOffset(std::vector<char>* data, int teller, QString instructie, QString nextInstr);
+    offsets searchOffset(const Mat& img);
+    offsets TurnLeft();
+    offsets TurnRight();
+    bool blauw,rood,wit,links,rechts,status;
 };
 
 #endif // FINDLINE_H

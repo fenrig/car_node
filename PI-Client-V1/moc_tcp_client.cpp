@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'tcp_client.h'
 **
-** Created: Tue May 14 18:58:45 2013
+** Created: Wed May 15 18:30:55 2013
 **      by: The Qt Meta Object Compiler version 63 (Qt 4.8.4)
 **
 ** WARNING! All changes made in this file will be lost!
@@ -31,18 +31,18 @@ static const uint qt_meta_data_tcp_client[] = {
        1,       // signalCount
 
  // signals: signature, parameters, type, tag, flags
-      11,   30,   34,   34, 0x05,
+      16,   12,   11,   11, 0x05,
 
  // slots: signature, parameters, type, tag, flags
-      35,   34,   34,   34, 0x08,
-      50,   34,   34,   34, 0x08,
-      62,   34,   34,   34, 0x08,
+      35,   11,   11,   11, 0x08,
+      50,   11,   11,   11, 0x08,
+      62,   11,   11,   11, 0x08,
 
        0        // eod
 };
 
 static const char qt_meta_stringdata_tcp_client[] = {
-    "tcp_client\0readyRead(QString)\0msg\0\0"
+    "tcp_client\0\0msg\0readyRead(QString)\0"
     "on_connected()\0read_data()\0on_disconnected()\0"
 };
 

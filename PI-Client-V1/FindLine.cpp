@@ -68,8 +68,16 @@ Mat FindLine::RedFilter(const Mat& src)
 
     return redOnly;
 }
+Mat FindLine::BlueFilter(const Mat& src)
+{
+    assert(src.type() == CV_8UC3);
+    Mat blueOnly;
+    cvtColor(src,src,CV_BGR2HSV);
+    inRange(src,Scalar(255,255,0),Scalar(255,255,255),blueOnly);
 
-offsets FindLine::FindOffset(std::vector<char>* data, int teller)
+    return blueOnly;
+}
+offsets FindLine::FindOffset(std::vector<char>* data, int teller, QString instructie, QString nextInstr)
 {
     offsets offset;
     Mat img = Mat(*data);
@@ -109,7 +117,207 @@ offsets FindLine::FindOffset(std::vector<char>* data, int teller)
         /*
          *End
          */
-        img = FindLine::RedFilter(img);
+
+        /*
+            N->E, S->W: rood, wit, links
+            N->S, S->N: rood, wit
+            N->W, E->N: rood, wit, rechts
+
+            E->S, W->N: rood, blauw, links
+            E->W, W->E: rood, blauw
+            E->N, W->S: rood, blauw, rechts
+        */
+        if((instructie=="n" && nextInstr=="e") || (instructie=="s" && nextInstr=="w"))
+        {
+            if(rood==true)
+            {
+                img = RedFilter(img);
+                offset = searchOffset(img);
+                if(offset.left==250 && offset.right==250)
+                {
+                    rood=false;
+                    wit=true;
+                    qDebug("nesw rood");
+                }
+            }
+            else if(wit==true)
+            {
+                img=WhiteFilter(img);
+                offset=searchOffset(img);
+                if(offset.left==250 && offset.right==250)
+                {
+                    wit=false;
+                    links=true;
+                    qDebug("nesw wit");
+                }
+            }
+            else if(links==true)
+            {
+                offset.left=0;
+                offset.right=250;
+                links=false;
+                rood=true;
+                status=false;
+                qDebug("nesw links");
+            }
+        }
+        else if((instructie=="n" && nextInstr=="s") || (instructie=="s" && nextInstr=="n"))
+        {
+            if(rood==true)
+            {
+                img = RedFilter(img);
+                offset = searchOffset(img);
+                if(offset.left==250 && offset.right==250)
+                {
+                    rood=false;
+                    wit=true;
+                    qDebug("nssn rood");
+                }
+            }
+            else if(wit==true)
+            {
+                img=WhiteFilter(img);
+                offset=searchOffset(img);
+                if(offset.left==250 && offset.right==250)
+                {
+                    wit=false;
+                    rood=true;
+                    status=false;
+                    qDebug("nssn wit");
+                }
+            }
+
+        }
+        else if((instructie=="n" && nextInstr=="w") || (instructie=="e" && nextInstr=="n"))
+        {
+            if(rood==true)
+            {
+                img = RedFilter(img);
+                offset = searchOffset(img);
+                if(offset.left==250 && offset.right==250)
+                {
+                    rood=false;
+                    wit=true;
+                    qDebug("nwen rood");
+                }
+            }
+            else if(wit==true)
+            {
+                img=WhiteFilter(img);
+                offset=searchOffset(img);
+                if(offset.left==250 && offset.right==250)
+                {
+                    wit=false;
+                    rechts=true;
+                    qDebug("nwen wit");
+                }
+            }
+            else if(rechts==true)
+            {
+                offset.left=250;
+                offset.right=0;
+                rechts=false;
+                rood=true;
+                status=false;
+                qDebug("nwen rechts");
+            }
+        }
+        else if((instructie=="e" && nextInstr=="s") || (instructie=="w" && nextInstr=="n"))
+        {
+            if(rood==true)
+            {
+                img = RedFilter(img);
+                offset = searchOffset(img);
+                if(offset.left==250 && offset.right==250)
+                {
+                    rood=false;
+                    blauw=true;
+                    qDebug("eswn rood");
+                }
+            }
+            else if(blauw==true)
+            {
+                img=BlueFilter(img);
+                offset=searchOffset(img);
+                if(offset.left==250 && offset.right==250)
+                {
+                    blauw=false;
+                    links=true;
+                    qDebug("eswn blauw");
+                }
+            }
+            else if(links==true)
+            {
+                offset.left=0;
+                offset.right=250;
+                links=false;
+                blauw=true;
+                status=false;
+                qDebug("eswn links");
+            }
+        }
+        else if((instructie=="e" && nextInstr=="w") || (instructie=="w" && nextInstr=="e"))
+        {
+            if(rood==true)
+            {
+                img = RedFilter(img);
+                offset = searchOffset(img);
+                if(offset.left==250 && offset.right==250)
+                {
+                    rood=false;
+                    blauw=true;
+                    qDebug("ewwe rood");
+                }
+            }
+            else if(blauw==true)
+            {
+                img=BlueFilter(img);
+                offset=searchOffset(img);
+                if(offset.left==250 && offset.right==250)
+                {
+                    blauw=false;
+                    rood=true;
+                    status=false;
+                    qDebug("eswn blauw");
+                }
+            }
+        }
+        else if((instructie=="e" && nextInstr=="n") || (instructie=="w" && nextInstr=="s"))
+        {
+            if(rood==true)
+            {
+                img = RedFilter(img);
+                offset = searchOffset(img);
+                if(offset.left==250 && offset.right==250)
+                {
+                    rood=false;
+                    blauw=true;
+                    qDebug("enws rood");
+                }
+            }
+            else if(blauw==true)
+            {
+                img=BlueFilter(img);
+                offset=searchOffset(img);
+                if(offset.left==250 && offset.right==250)
+                {
+                    blauw=false;
+                    rechts=true;
+                    qDebug("eswn blauw");
+                }
+            }
+            else if(rechts==true)
+            {
+                offset.left=0;
+                offset.right=250;
+                rechts=false;
+                blauw=true;
+                status=false;
+                qDebug("eswn rechts");
+            }
+        }
+
+        // nsnwneswewsen
         /*
          *Debug
          */
@@ -121,7 +329,19 @@ offsets FindLine::FindOffset(std::vector<char>* data, int teller)
         /*
          *End
          */
-
+    }
+    else
+    {
+        printf("Invalid image! \n");
+    }
+    qDebug() << "No offset!";
+    offset.left = 250;
+    offset.right = 250;
+    return offset;
+}
+offsets FindLine::searchOffset(const Mat& img)
+ {
+        offsets offset;
         //find offsets
         uint8_t* pixelPtr = (uint8_t*)img.data;
         int cn = img.channels();
@@ -233,13 +453,5 @@ offsets FindLine::FindOffset(std::vector<char>* data, int teller)
                 }
             }
         }
-    }
-    else
-    {
-        printf("Invalid image! \n");
-    }
-    qDebug() << "No offset!";
-    offset.left = 250;
-    offset.right = 250;
     return offset;
 }
