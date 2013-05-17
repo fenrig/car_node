@@ -21,7 +21,6 @@ void linefollowingthread::stop(void){
 }
 
 void linefollowingthread::run(){
-    qDebug("TEST");
     FindLine fl;
     offsets os;
     UartCamera cam;
@@ -30,6 +29,8 @@ void linefollowingthread::run(){
     //for(int i=0;i<11;i++)
     std::vector<char> *data;
     instruction = road.split(";", QString::SkipEmptyParts);
+    qDebug() << "debug:";
+    qDebug() << instruction;
     qDebug("TEST");
     fl.rood=true;
     fl.blauw=false;
