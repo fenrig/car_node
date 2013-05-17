@@ -133,6 +133,7 @@ offsets FindLine::FindOffset(std::vector<char>* data, int teller, QString instru
             qDebug("nesw");
             if(rood==true)
             {
+                qDebug("rood");
                 img = RedFilter(img);
                 offset = searchOffset(img);
                 if(offset.left==250 && offset.right==250)
@@ -144,6 +145,7 @@ offsets FindLine::FindOffset(std::vector<char>* data, int teller, QString instru
             }
             else if(wit==true)
             {
+                qDebug("wit");
                 img=WhiteFilter(img);
                 offset=searchOffset(img);
                 if(offset.left==250 && offset.right==250)
@@ -155,6 +157,7 @@ offsets FindLine::FindOffset(std::vector<char>* data, int teller, QString instru
             }
             else if(links==true)
             {
+                qDebug("links");
                 offset.left=0;
                 offset.right=250;
                 links=false;
@@ -168,6 +171,7 @@ offsets FindLine::FindOffset(std::vector<char>* data, int teller, QString instru
             qDebug("nssn");
             if(rood==true)
             {
+                qDebug("rood");
                 img = RedFilter(img);
                 offset = searchOffset(img);
                 if(offset.left==250 && offset.right==250)
@@ -179,6 +183,7 @@ offsets FindLine::FindOffset(std::vector<char>* data, int teller, QString instru
             }
             else if(wit==true)
             {
+                qDebug("wit");
                 img=WhiteFilter(img);
                 offset=searchOffset(img);
                 if(offset.left==250 && offset.right==250)
@@ -196,6 +201,7 @@ offsets FindLine::FindOffset(std::vector<char>* data, int teller, QString instru
             qDebug("nwen");
             if(rood==true)
             {
+                qDebug("rood");
                 img = RedFilter(img);
                 offset = searchOffset(img);
                 if(offset.left==250 && offset.right==250)
@@ -207,6 +213,7 @@ offsets FindLine::FindOffset(std::vector<char>* data, int teller, QString instru
             }
             else if(wit==true)
             {
+                qDebug("wit");
                 img=WhiteFilter(img);
                 offset=searchOffset(img);
                 if(offset.left==250 && offset.right==250)
@@ -218,6 +225,7 @@ offsets FindLine::FindOffset(std::vector<char>* data, int teller, QString instru
             }
             else if(rechts==true)
             {
+                qDebug("rechts");
                 offset.left=250;
                 offset.right=0;
                 rechts=false;
@@ -231,6 +239,7 @@ offsets FindLine::FindOffset(std::vector<char>* data, int teller, QString instru
             qDebug("eswn");
             if(rood==true)
             {
+                qDebug("rood");
                 img = RedFilter(img);
                 offset = searchOffset(img);
                 if(offset.left==250 && offset.right==250)
@@ -242,6 +251,7 @@ offsets FindLine::FindOffset(std::vector<char>* data, int teller, QString instru
             }
             else if(blauw==true)
             {
+                qDebug("blauw");
                 img=BlueFilter(img);
                 offset=searchOffset(img);
                 if(offset.left==250 && offset.right==250)
@@ -253,6 +263,7 @@ offsets FindLine::FindOffset(std::vector<char>* data, int teller, QString instru
             }
             else if(links==true)
             {
+                qDebug("links");
                 offset.left=0;
                 offset.right=250;
                 links=false;
@@ -266,6 +277,7 @@ offsets FindLine::FindOffset(std::vector<char>* data, int teller, QString instru
             qDebug("ewwe");
             if(rood==true)
             {
+                qDebug("rood");
                 img = RedFilter(img);
                 offset = searchOffset(img);
                 if(offset.left==250 && offset.right==250)
@@ -277,6 +289,7 @@ offsets FindLine::FindOffset(std::vector<char>* data, int teller, QString instru
             }
             else if(blauw==true)
             {
+                qDebug("blauw");
                 img=BlueFilter(img);
                 offset=searchOffset(img);
                 if(offset.left==250 && offset.right==250)
@@ -293,6 +306,7 @@ offsets FindLine::FindOffset(std::vector<char>* data, int teller, QString instru
             qDebug("enws");
             if(rood==true)
             {
+                qDebug("rood");
                 img = RedFilter(img);
                 offset = searchOffset(img);
                 if(offset.left==250 && offset.right==250)
@@ -304,6 +318,7 @@ offsets FindLine::FindOffset(std::vector<char>* data, int teller, QString instru
             }
             else if(blauw==true)
             {
+                qDebug("blauw");
                 img=BlueFilter(img);
                 offset=searchOffset(img);
                 if(offset.left==250 && offset.right==250)
@@ -315,6 +330,7 @@ offsets FindLine::FindOffset(std::vector<char>* data, int teller, QString instru
             }
             else if(rechts==true)
             {
+                qDebug("rechts");
                 offset.left=0;
                 offset.right=250;
                 rechts=false;
