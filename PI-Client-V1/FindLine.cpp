@@ -267,7 +267,7 @@ offsets FindLine::FindOffset(std::vector<char>* data, int teller, QString instru
                 offset.left=0;
                 offset.right=250;
                 links=false;
-                blauw=true;
+                rood=true;
                 status=false;
                 qDebug("eswn links");
             }
@@ -334,7 +334,7 @@ offsets FindLine::FindOffset(std::vector<char>* data, int teller, QString instru
                 offset.left=0;
                 offset.right=250;
                 rechts=false;
-                blauw=true;
+                rood=true;
                 status=false;
                 qDebug("eswn rechts");
             }
