@@ -31,7 +31,7 @@ void linefollowingthread::run(){
     std::vector<char> *data;
     instruction = road.split(";", QString::SkipEmptyParts);
     qDebug("TEST");
-    fl.rood=false;
+    fl.rood=true;
     fl.blauw=false;
     fl.wit=false;
     fl.links=false;
