@@ -127,8 +127,10 @@ offsets FindLine::FindOffset(std::vector<char>* data, int teller, QString instru
             E->W, W->E: rood, blauw
             E->N, W->S: rood, blauw, rechts
         */
+        qDebug("Voor alles");
         if((instructie=="n" && nextInstr=="e") || (instructie=="s" && nextInstr=="w"))
         {
+            qDebug("nesw");
             if(rood==true)
             {
                 img = RedFilter(img);
@@ -163,6 +165,7 @@ offsets FindLine::FindOffset(std::vector<char>* data, int teller, QString instru
         }
         else if((instructie=="n" && nextInstr=="s") || (instructie=="s" && nextInstr=="n"))
         {
+            qDebug("nssn");
             if(rood==true)
             {
                 img = RedFilter(img);
@@ -190,6 +193,7 @@ offsets FindLine::FindOffset(std::vector<char>* data, int teller, QString instru
         }
         else if((instructie=="n" && nextInstr=="w") || (instructie=="e" && nextInstr=="n"))
         {
+            qDebug("nwen");
             if(rood==true)
             {
                 img = RedFilter(img);
@@ -224,6 +228,7 @@ offsets FindLine::FindOffset(std::vector<char>* data, int teller, QString instru
         }
         else if((instructie=="e" && nextInstr=="s") || (instructie=="w" && nextInstr=="n"))
         {
+            qDebug("eswn");
             if(rood==true)
             {
                 img = RedFilter(img);
@@ -258,6 +263,7 @@ offsets FindLine::FindOffset(std::vector<char>* data, int teller, QString instru
         }
         else if((instructie=="e" && nextInstr=="w") || (instructie=="w" && nextInstr=="e"))
         {
+            qDebug("ewwe");
             if(rood==true)
             {
                 img = RedFilter(img);
@@ -284,6 +290,7 @@ offsets FindLine::FindOffset(std::vector<char>* data, int teller, QString instru
         }
         else if((instructie=="e" && nextInstr=="n") || (instructie=="w" && nextInstr=="s"))
         {
+            qDebug("enws");
             if(rood==true)
             {
                 img = RedFilter(img);
