@@ -37,7 +37,7 @@ void linefollowingthread::run(){
     fl.wit=false;
     fl.links=false;
     fl.rechts=false;
-    for(int teller=0;teller<instruction.length()-1;teller++)
+    for(int teller=0;teller<instruction.length()-2;teller++)
     {
         fl.status=true;
         while(fl.status==true)
