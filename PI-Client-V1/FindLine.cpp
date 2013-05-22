@@ -166,7 +166,7 @@ offsets FindLine::FindOffset(std::vector<char>* data, int teller, QString instru
                 qDebug("nesw links");
             }
         }
-        else if((instructie=="n" && nextInstr=="s") || (instructie=="s" && nextInstr=="n"))
+        else if((instructie=="n" && nextInstr=="s") || (instructie=="s" && nextInstr=="n") || (instructie=="n" && nextInstr=="n") || (instructie=="s" && nextInstr=="s"))
         {
             qDebug("nssn");
             if(rood==true)
@@ -272,7 +272,7 @@ offsets FindLine::FindOffset(std::vector<char>* data, int teller, QString instru
                 qDebug("eswn links");
             }
         }
-        else if((instructie=="e" && nextInstr=="w") || (instructie=="w" && nextInstr=="e"))
+        else if((instructie=="e" && nextInstr=="w") || (instructie=="w" && nextInstr=="e") || (instructie=="e" && nextInstr=="e") || (instructie=="w" && nextInstr=="w"))
         {
             qDebug("ewwe");
             if(rood==true)
