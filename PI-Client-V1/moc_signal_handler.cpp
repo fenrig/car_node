@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'signal_handler.h'
 **
-** Created: Tue May 14 19:21:01 2013
+** Created: Wed May 15 18:24:45 2013
 **      by: The Qt Meta Object Compiler version 63 (Qt 4.8.4)
 **
 ** WARNING! All changes made in this file will be lost!
@@ -31,13 +31,13 @@ static const uint qt_meta_data_signal_handler[] = {
        0,       // signalCount
 
  // slots: signature, parameters, type, tag, flags
-      15,   31,   31,   31, 0x0a,
+      16,   15,   15,   15, 0x0a,
 
        0        // eod
 };
 
 static const char qt_meta_stringdata_signal_handler[] = {
-    "signal_handler\0handleSigTerm()\0\0"
+    "signal_handler\0\0handleSigTerm()\0"
 };
 
 void signal_handler::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)

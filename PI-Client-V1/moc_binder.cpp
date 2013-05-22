@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'binder.h'
 **
-** Created: Tue May 14 18:58:59 2013
+** Created: Wed May 15 18:35:36 2013
 **      by: The Qt Meta Object Compiler version 63 (Qt 4.8.4)
 **
 ** WARNING! All changes made in this file will be lost!
@@ -31,13 +31,13 @@ static const uint qt_meta_data_binder[] = {
        0,       // signalCount
 
  // slots: signature, parameters, type, tag, flags
-       7,   28,   32,   32, 0x0a,
+      12,    8,    7,    7, 0x0a,
 
        0        // eod
 };
 
 static const char qt_meta_stringdata_binder[] = {
-    "binder\0parseTCPmsg(QString)\0msg\0\0"
+    "binder\0\0msg\0parseTCPmsg(QString)\0"
 };
 
 void binder::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)

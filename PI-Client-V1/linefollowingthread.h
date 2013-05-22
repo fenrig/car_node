@@ -2,7 +2,7 @@
 #define LINEFOLLOWINGTHREAD_H
 
 #include <QThread>
-
+#include <QStringList>
 class QMutex;
 
 class SPI;
@@ -15,10 +15,13 @@ public:
     ~linefollowingthread();
     void run();
     void stop();
+    void setRoad(QString roadmap);
 private:
     SPI* s;
     bool blstop;
     QMutex *mutex;
+    QString road;
+    QStringList instruction;
 signals:
     
 public slots:

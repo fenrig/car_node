@@ -41,17 +41,19 @@ int main(int argc, char *argv[])
 {
     QCoreApplication a(argc, argv);
 
-    //tcp_client c;
-    //c.connectToServer();
-    SPI s;
-    linefollowingthread lft(&s);
-    //linefollowingthread lft(NULL);
-    signal_handler sh(&lft);
-    setup_unix_signal_handlers();
-    lft.start();
+    tcp_client c;
 
-  //  binder b(&c,&s);
+    //SPI s;
+    //linefollowingthread lft(&s);
+    linefollowingthread lft(NULL);
+    //signal_handler sh(&lft);
+    //setup_unix_signal_handlers();
+    //lft.start();
 
+    //binder b(&c,&s);
+    binder b(&c,&lft);
+
+    c.connectToServer();
     /*
     unsigned char message[] = "zbcd";
     forever{

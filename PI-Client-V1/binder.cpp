@@ -3,25 +3,36 @@
 //#include <spi.h>
 //#include <cstdio>
 #include <QMap>
-//#include <QDebug>
+#include <linefollowingthread.h>
+#include <QTest>
+#include <QDebug>
 
-binder::binder(tcp_client *tcp_x/*, SPI *spi_x*/, QObject *parent) :
-    QObject(parent), tcp(tcp_x)//, spi(spi_x)
+binder::binder(tcp_client *tcp_x/*, SPI *spi_x*/, linefollowingthread *lft, QObject *parent) :
+    QObject(parent), tcp(tcp_x), lft(lft)//, spi(spi_x)
 {
-    instructions["forward"] = (unsigned char)1;
-    instructions["backward"] = (unsigned char)2;
-    instructions["fb-stop"] = (unsigned char)3;
-    instructions["left"] = (unsigned char)4;
-    instructions["right"] = (unsigned char)5;
-    instructions["lr-stop"] = (unsigned char)6;
-    // -------------
     connect(tcp, SIGNAL(readyRead(QString)), this, SLOT(parseTCPmsg(QString)));
 }
 
 void binder::parseTCPmsg(QString msg){
     QByteArray* val = NULL;
+    if(read==true)
+    {
+        if(lft->isRunning())
+        {
+            lft->stop();
+        }
+        while (lft->isRunning())
+        {
+            QTest::qSleep(50);
+        }
+
+        lft->setRoad(msg);
+        lft->start();
+        read=false;
+    }
     if(msg == "instructionlist_changed"){
-        QByteArray val("get_instructions");
+        val = new QByteArray("get_instructions");
+        read = true;
     }
     if(val != NULL) tcp->write_data(val);
 }
