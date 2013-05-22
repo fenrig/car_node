@@ -35,7 +35,7 @@ void linefollowingthread::run(){
     fl.wit=false;
     fl.links=false;
     fl.rechts=false;
-    for(int teller=0;teller<instruction.length();teller++)
+    for(int teller=0;teller<instruction.length()-1;teller++)
     {
         fl.status=true;
         qDebug("Teller:");
@@ -88,6 +88,7 @@ void linefollowingthread::run(){
             mutex->unlock();
         }
     }
+    qDebug("Bestemming bereikt!");
 }
 
 void linefollowingthread::setRoad(QString roadmap)
