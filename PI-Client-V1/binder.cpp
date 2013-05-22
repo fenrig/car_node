@@ -17,24 +17,29 @@ void binder::parseTCPmsg(QString msg){
     QByteArray* val = NULL;
     if(read==true)
     {
+        qDebug("read==true");
         if(lft->isRunning())
         {
+            qDebug("isRunning: if");
             lft->stop();
         }
         while (lft->isRunning())
         {
+            qDebug("isRunning: while");
             QTest::qSleep(50);
         }
 
         lft->setRoad(msg);
         lft->start();
         read=false;
+        qDebug("stop");
     }
     if(msg == "instructionlist_changed"){
         val = new QByteArray("get_instructions");
         read = true;
     }
     if(val != NULL) tcp->write_data(val);
+    qDebug("Einde");
 }
 
 

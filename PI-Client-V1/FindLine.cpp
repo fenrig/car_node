@@ -127,10 +127,13 @@ offsets FindLine::FindOffset(std::vector<char>* data, int teller, QString instru
             E->W, W->E: rood, blauw
             E->N, W->S: rood, blauw, rechts
         */
+        qDebug("Voor alles");
         if((instructie=="n" && nextInstr=="e") || (instructie=="s" && nextInstr=="w"))
         {
+            qDebug("nesw");
             if(rood==true)
             {
+                qDebug("rood");
                 img = RedFilter(img);
                 offset = searchOffset(img);
                 if(offset.left==250 && offset.right==250)
@@ -142,6 +145,7 @@ offsets FindLine::FindOffset(std::vector<char>* data, int teller, QString instru
             }
             else if(wit==true)
             {
+                qDebug("wit");
                 img=WhiteFilter(img);
                 offset=searchOffset(img);
                 if(offset.left==250 && offset.right==250)
@@ -153,6 +157,7 @@ offsets FindLine::FindOffset(std::vector<char>* data, int teller, QString instru
             }
             else if(links==true)
             {
+                qDebug("links");
                 offset.left=0;
                 offset.right=250;
                 links=false;
@@ -163,8 +168,10 @@ offsets FindLine::FindOffset(std::vector<char>* data, int teller, QString instru
         }
         else if((instructie=="n" && nextInstr=="s") || (instructie=="s" && nextInstr=="n"))
         {
+            qDebug("nssn");
             if(rood==true)
             {
+                qDebug("rood");
                 img = RedFilter(img);
                 offset = searchOffset(img);
                 if(offset.left==250 && offset.right==250)
@@ -176,6 +183,7 @@ offsets FindLine::FindOffset(std::vector<char>* data, int teller, QString instru
             }
             else if(wit==true)
             {
+                qDebug("wit");
                 img=WhiteFilter(img);
                 offset=searchOffset(img);
                 if(offset.left==250 && offset.right==250)
@@ -190,8 +198,10 @@ offsets FindLine::FindOffset(std::vector<char>* data, int teller, QString instru
         }
         else if((instructie=="n" && nextInstr=="w") || (instructie=="e" && nextInstr=="n"))
         {
+            qDebug("nwen");
             if(rood==true)
             {
+                qDebug("rood");
                 img = RedFilter(img);
                 offset = searchOffset(img);
                 if(offset.left==250 && offset.right==250)
@@ -203,6 +213,7 @@ offsets FindLine::FindOffset(std::vector<char>* data, int teller, QString instru
             }
             else if(wit==true)
             {
+                qDebug("wit");
                 img=WhiteFilter(img);
                 offset=searchOffset(img);
                 if(offset.left==250 && offset.right==250)
@@ -214,6 +225,7 @@ offsets FindLine::FindOffset(std::vector<char>* data, int teller, QString instru
             }
             else if(rechts==true)
             {
+                qDebug("rechts");
                 offset.left=250;
                 offset.right=0;
                 rechts=false;
@@ -224,8 +236,10 @@ offsets FindLine::FindOffset(std::vector<char>* data, int teller, QString instru
         }
         else if((instructie=="e" && nextInstr=="s") || (instructie=="w" && nextInstr=="n"))
         {
+            qDebug("eswn");
             if(rood==true)
             {
+                qDebug("rood");
                 img = RedFilter(img);
                 offset = searchOffset(img);
                 if(offset.left==250 && offset.right==250)
@@ -237,6 +251,7 @@ offsets FindLine::FindOffset(std::vector<char>* data, int teller, QString instru
             }
             else if(blauw==true)
             {
+                qDebug("blauw");
                 img=BlueFilter(img);
                 offset=searchOffset(img);
                 if(offset.left==250 && offset.right==250)
@@ -248,18 +263,21 @@ offsets FindLine::FindOffset(std::vector<char>* data, int teller, QString instru
             }
             else if(links==true)
             {
+                qDebug("links");
                 offset.left=0;
                 offset.right=250;
                 links=false;
-                blauw=true;
+                rood=true;
                 status=false;
                 qDebug("eswn links");
             }
         }
         else if((instructie=="e" && nextInstr=="w") || (instructie=="w" && nextInstr=="e"))
         {
+            qDebug("ewwe");
             if(rood==true)
             {
+                qDebug("rood");
                 img = RedFilter(img);
                 offset = searchOffset(img);
                 if(offset.left==250 && offset.right==250)
@@ -271,6 +289,7 @@ offsets FindLine::FindOffset(std::vector<char>* data, int teller, QString instru
             }
             else if(blauw==true)
             {
+                qDebug("blauw");
                 img=BlueFilter(img);
                 offset=searchOffset(img);
                 if(offset.left==250 && offset.right==250)
@@ -284,8 +303,10 @@ offsets FindLine::FindOffset(std::vector<char>* data, int teller, QString instru
         }
         else if((instructie=="e" && nextInstr=="n") || (instructie=="w" && nextInstr=="s"))
         {
+            qDebug("enws");
             if(rood==true)
             {
+                qDebug("rood");
                 img = RedFilter(img);
                 offset = searchOffset(img);
                 if(offset.left==250 && offset.right==250)
@@ -297,6 +318,7 @@ offsets FindLine::FindOffset(std::vector<char>* data, int teller, QString instru
             }
             else if(blauw==true)
             {
+                qDebug("blauw");
                 img=BlueFilter(img);
                 offset=searchOffset(img);
                 if(offset.left==250 && offset.right==250)
@@ -308,10 +330,11 @@ offsets FindLine::FindOffset(std::vector<char>* data, int teller, QString instru
             }
             else if(rechts==true)
             {
+                qDebug("rechts");
                 offset.left=0;
                 offset.right=250;
                 rechts=false;
-                blauw=true;
+                rood=true;
                 status=false;
                 qDebug("eswn rechts");
             }
