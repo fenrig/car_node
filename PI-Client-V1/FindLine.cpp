@@ -357,9 +357,6 @@ offsets FindLine::FindOffset(std::vector<char>* data, int teller, QString instru
     {
         printf("Invalid image! \n");
     }
-    qDebug() << "No offset!";
-    offset.left = 250;
-    offset.right = 250;
     return offset;
 }
 offsets FindLine::searchOffset(const Mat& img)
@@ -476,5 +473,8 @@ offsets FindLine::searchOffset(const Mat& img)
                 }
             }
         }
+        qDebug() << "No offset!";
+        offset.left = 250;
+        offset.right = 250;
     return offset;
 }

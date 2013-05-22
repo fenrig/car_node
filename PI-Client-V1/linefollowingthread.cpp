@@ -40,6 +40,8 @@ void linefollowingthread::run(){
     for(int teller=0;teller<instruction.length()-2;teller++)
     {
         fl.status=true;
+        qDebug("Teller:");
+        qDebug() << teller;
         while(fl.status==true)
         {
             data = cam.GetPicture();
@@ -75,13 +77,8 @@ void linefollowingthread::run(){
                 os = fl.FindOffset(data,i,instruction.at(teller),instruction.at(teller+1));
                 msg[0]= os.left;
                 msg[1]= os.right;
-               // msg[0] = 125;
-               // msg[1] = 125;
                 qDebug() << i << ": " << msg[0] << ":" << msg[1];
                 i++;
-                //pic.close();
-                //s->send(msg,2);
-                //data.clear();
             }
             qDebug() << "-------------";
 
@@ -93,13 +90,6 @@ void linefollowingthread::run(){
             mutex->unlock();
         }
     }
-    /*
-    forever{
-        s->send(msg);
-        QTest::qSleep(50);
-        qDebug() << "send";
-    }
-    */
 }
 
 void linefollowingthread::setRoad(QString roadmap)
