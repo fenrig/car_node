@@ -77,6 +77,7 @@ void linefollowingthread::run(){
                 msg[1]= os.right;
                 qDebug() << i << ": " << msg[0] << ":" << msg[1];
                 i++;
+                s->send(msg,2);
             }
             qDebug() << "-------------";
 

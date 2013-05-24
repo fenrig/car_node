@@ -43,9 +43,9 @@ int main(int argc, char *argv[])
 
     tcp_client c;
 
-    //SPI s;
-    //linefollowingthread lft(&s);
-    linefollowingthread lft(NULL);
+    SPI s;
+    linefollowingthread lft(&s);
+    //linefollowingthread lft(NULL);
     //signal_handler sh(&lft);
     //setup_unix_signal_handlers();
     //lft.start();
