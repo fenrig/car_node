@@ -18,7 +18,7 @@ class binder : public QObject
     QMap<QString, unsigned char> instructions;
 public:
     binder(tcp_client *tcp_x/*, SPI *spi_x*/,linefollowingthread *lft, QObject *parent = 0);
-    bool read=false;
+    bool read;
 signals:
 public slots:
     void parseTCPmsg(QString msg);

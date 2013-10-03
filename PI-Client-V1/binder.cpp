@@ -10,6 +10,7 @@
 binder::binder(tcp_client *tcp_x/*, SPI *spi_x*/, linefollowingthread *lft, QObject *parent) :
     QObject(parent), tcp(tcp_x), lft(lft)//, spi(spi_x)
 {
+    read = false;
     connect(tcp, SIGNAL(readyRead(QString)), this, SLOT(parseTCPmsg(QString)));
 }
 

@@ -2,7 +2,6 @@
 #include "spi.h"
 #include "FindLine.h"
 #include "QDebug"
-#include "uartcamera.h"
 #include "vector"
 #include "QMutex"
 #include "QFile"
@@ -23,8 +22,8 @@ void linefollowingthread::stop(void){
 void linefollowingthread::run(){
     FindLine fl;
     offsets os;
-    UartCamera cam;
-    cam.changeCompression(255);
+    //UartCamera cam;
+    //cam.changeCompression(255);
     int i = 0;
     //for(int i=0;i<11;i++)
     std::vector<char> *data;
@@ -42,7 +41,7 @@ void linefollowingthread::run(){
         qDebug() << teller;
         while(fl.status==true)
         {
-            data = cam.GetPicture();
+            //data = cam.GetPicture();
             /*Debug
             //std::vector<char> data;
             QFile pic("/home/dries/Documenten/Project2/PI code/picsred/origineel" + QString::number(i) + ".jpg");
