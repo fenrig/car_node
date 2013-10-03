@@ -25,7 +25,7 @@ public:
     Mat WhiteFilter(const Mat& src);
     Mat RedFilter(const Mat& src);
     Mat BlueFilter(const Mat& src);
-    offsets FindOffset(std::vector<char>* data, int teller, QString instructie, QString nextInstr);
+    offsets FindOffset(Mat data, int teller, QString instructie, QString nextInstr);
     offsets searchOffset(const Mat& img);
     offsets TurnLeft();
     offsets TurnRight();

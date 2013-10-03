@@ -77,10 +77,10 @@ Mat FindLine::BlueFilter(const Mat& src)
 
     return blueOnly;
 }
-offsets FindLine::FindOffset(std::vector<char>* data, int teller, QString instructie, QString nextInstr)
+offsets FindLine::FindOffset(Mat img, int teller, QString instructie, QString nextInstr)
 {
     offsets offset;
-    Mat img = Mat(*data);
+    //Mat img = Mat(*data);
     img = imdecode(img,1);
     //read img from path
     //img = FindLine::ReadImage();

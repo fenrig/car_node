@@ -22,11 +22,13 @@ void linefollowingthread::stop(void){
 void linefollowingthread::run(){
     FindLine fl;
     offsets os;
+    CvCapture *cam = cvCreateCameraCapture(0);
     //UartCamera cam;
     //cam.changeCompression(255);
     int i = 0;
     //for(int i=0;i<11;i++)
-    std::vector<char> *data;
+    //std::vector<char> *data;
+    Mat data;
     instruction = road.split(";", QString::SkipEmptyParts);
     qDebug() << instruction;
     fl.rood=true;
@@ -42,6 +44,10 @@ void linefollowingthread::run(){
         while(fl.status==true)
         {
             //data = cam.GetPicture();
+            cvGrabFrame(cam);
+            IplImage *img = cvRetrieveFrame(cam);
+            data = mat(*img, true);
+
             /*Debug
             //std::vector<char> data;
             QFile pic("/home/dries/Documenten/Project2/PI code/picsred/origineel" + QString::number(i) + ".jpg");
@@ -80,8 +86,8 @@ void linefollowingthread::run(){
             }
             qDebug() << "-------------";
 
-            data->clear();
-            delete(data);
+            //data->clear();
+            //delete(data);
 
             mutex->lock();
             if(blstop == true) return;
