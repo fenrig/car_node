@@ -16,7 +16,7 @@ binder::binder(tcp_client *tcp_x/*, SPI *spi_x*/, linefollowingthread *lft, QObj
 
 void binder::parseTCPmsg(QString msg){
     QByteArray* val = NULL;
-    if(read==true)
+    if(read)
     {
         qDebug("read==true");
         if(lft->isRunning())
@@ -32,14 +32,17 @@ void binder::parseTCPmsg(QString msg){
 
         lft->setRoad(msg);
         lft->start();
-        read=false;
+        read = false;
         qDebug("stop");
     }
     if(msg == "instructionlist_changed"){
         val = new QByteArray("get_instructions");
         read = true;
     }
-    if(val != NULL) tcp->write_data(val);
+    if(val != NULL){
+        tcp->write_data(val);
+        free(val);
+    }
     qDebug("Einde");
 }
 

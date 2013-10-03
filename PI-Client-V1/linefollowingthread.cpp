@@ -100,7 +100,6 @@ void linefollowingthread::run(){
 void linefollowingthread::setRoad(QString roadmap)
 {
     road = roadmap;
-    qDebug("TEST2");
 }
 
 linefollowingthread::~linefollowingthread(){
