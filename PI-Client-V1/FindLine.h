@@ -19,13 +19,16 @@ typedef struct {
 using namespace cv;
 class FindLine : public QObject
 {
+private:
+    VideoCapture cam;
 public:
     explicit FindLine(QObject *parent = 0);
+    ~FindLine();
     Mat ReadImage(void);
     Mat WhiteFilter(const Mat& src);
     Mat RedFilter(const Mat& src);
     Mat BlueFilter(const Mat& src);
-    offsets FindOffset(Mat data, int teller, QString instructie, QString nextInstr);
+    offsets FindOffset(int teller, QString instructie, QString nextInstr);
     offsets searchOffset(const Mat& img);
     offsets TurnLeft();
     offsets TurnRight();

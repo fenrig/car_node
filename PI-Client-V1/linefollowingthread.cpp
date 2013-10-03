@@ -22,13 +22,9 @@ void linefollowingthread::stop(void){
 void linefollowingthread::run(){
     FindLine fl;
     offsets os;
-    CvCapture *cam = cvCreateCameraCapture(0);
-    //UartCamera cam;
-    //cam.changeCompression(255);
-    int i = 0;
-    //for(int i=0;i<11;i++)
-    //std::vector<char> *data;
     Mat data;
+    int i = 0;
+
     instruction = road.split(";", QString::SkipEmptyParts);
     qDebug() << instruction;
     fl.rood=true;
@@ -44,9 +40,13 @@ void linefollowingthread::run(){
         while(fl.status==true)
         {
             //data = cam.GetPicture();
+            /* C API
             cvGrabFrame(cam);
             IplImage *img = cvRetrieveFrame(cam);
-            data = mat(*img, true);
+            data = mat(*img);
+            */
+
+
 
             /*Debug
             //std::vector<char> data;
@@ -76,14 +76,12 @@ void linefollowingthread::run(){
             */
             int size = 2;
             __u8 msg[size];
-            if(! data->empty() ){
-                os = fl.FindOffset(data,i,instruction.at(teller),instruction.at(teller+1));
-                msg[0]= os.left;
-                msg[1]= os.right;
-                qDebug() << i << ": " << msg[0] << ":" << msg[1];
-                i++;
-                s->send(msg,2);
-            }
+            os = fl.FindOffset(i,instruction.at(teller),instruction.at(teller+1));
+            msg[0]= os.left;
+            msg[1]= os.right;
+            qDebug() << i << ": " << msg[0] << ":" << msg[1];
+            i++;
+            s->send(msg,2);
             qDebug() << "-------------";
 
             //data->clear();

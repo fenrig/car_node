@@ -20,6 +20,10 @@ using namespace cv;
 FindLine::FindLine(QObject *parent) :
     QObject(parent)
 {
+    cam = VideoCapture(0);
+}
+
+FindLine::~FindLine(){
 }
 
 Mat FindLine::ReadImage()
@@ -77,11 +81,13 @@ Mat FindLine::BlueFilter(const Mat& src)
 
     return blueOnly;
 }
-offsets FindLine::FindOffset(Mat img, int teller, QString instructie, QString nextInstr)
+offsets FindLine::FindOffset(int teller, QString instructie, QString nextInstr)
 {
     offsets offset;
+    Mat img;
+    cam.read(img);
     //Mat img = Mat(*data);
-    img = imdecode(img,1);
+    img = imdecode(img, 1);
     //read img from path
     //img = FindLine::ReadImage();
     if(img.data)
