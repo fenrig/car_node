@@ -20,7 +20,7 @@ using namespace cv;
 class FindLine : public QObject
 {
 private:
-    VideoCapture *cam;
+    VideoCapture cam;
 public:
     explicit FindLine(QObject *parent = 0);
     ~FindLine();
