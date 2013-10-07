@@ -20,7 +20,7 @@ using namespace cv;
 FindLine::FindLine(QObject *parent) :
     QObject(parent)
 {
-    cam = VideoCapture(-1);
+    cam = VideoCapture(0);
     cam.set(CV_CAP_PROP_FRAME_WIDTH, 640);
     cam.set(CV_CAP_PROP_FRAME_HEIGHT, 480);
 }
