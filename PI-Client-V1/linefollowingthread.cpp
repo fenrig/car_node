@@ -86,7 +86,7 @@ void linefollowingthread::run(){
 
             //data->clear();
             //delete(data);
-            this->usleep(50);
+            this->usleep(25);
             mutex->lock();
             if(blstop == true) return;
             mutex->unlock();
