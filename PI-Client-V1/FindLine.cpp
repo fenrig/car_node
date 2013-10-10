@@ -92,6 +92,8 @@ offsets FindLine::FindOffset(int teller, QString instructie, QString nextInstr)
     img = imdecode(img, 1);
     //read img from path
     //img = FindLine::ReadImage();
+    qDebug() << "img: " << img;
+    qDebug() << "img.data: " << img.data;
     if(img.data)
     {
         vector<int> compression_params;
