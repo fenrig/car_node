@@ -20,7 +20,8 @@ using namespace cv;
 FindLine::FindLine(QObject *parent) :
     QObject(parent)
 {
-    cam = new VideoCapture(0);
+    cam = new VideoCapture(-1);
+    if(!cam->isOpened()) qDebug() << "Cannot open Camera";
     cam->set(CV_CAP_PROP_FRAME_WIDTH, 640);
     cam->set(CV_CAP_PROP_FRAME_HEIGHT, 480);
 }
@@ -88,11 +89,12 @@ offsets FindLine::FindOffset(int teller, QString instructie, QString nextInstr)
     offsets offset;
     Mat img;
 
-    cam->read(img);
+    qDebug() << "Camera Read(): " << cam->read(img);
     //Mat img = Mat(*data);
     img = imdecode(img, 1);
     //read img from path
     //img = FindLine::ReadImage();
+
 
     if(img.data)
     {
