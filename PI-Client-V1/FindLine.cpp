@@ -87,7 +87,6 @@ Mat FindLine::BlueFilter(const Mat& src)
 offsets FindLine::FindOffset(int teller, QString instructie, QString nextInstr)
 {
     offsets offset;
-    Mat img;
     Mat preimg;
 
     qDebug() << "Camera Read(): " << cam->read(preimg);
