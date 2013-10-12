@@ -91,12 +91,12 @@ offsets FindLine::FindOffset(int teller, QString instructie, QString nextInstr)
 
     qDebug() << "Camera Read(): " << cam->read(img);
     //Mat img = Mat(*data);
-    img = imdecode(img, 1);
+    // - img = imdecode(img, 1);
     //read img from path
     //img = FindLine::ReadImage();
 
 
-    if(true /*img.data*/)
+    if(img.data)
     {
         vector<int> compression_params;
         compression_params.push_back(CV_IMWRITE_JPEG_QUALITY);
