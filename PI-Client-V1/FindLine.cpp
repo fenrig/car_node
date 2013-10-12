@@ -96,7 +96,7 @@ offsets FindLine::FindOffset(int teller, QString instructie, QString nextInstr)
     //img = FindLine::ReadImage();
 
 
-    if(img.data)
+    if(true /*img.data*/)
     {
         vector<int> compression_params;
         compression_params.push_back(CV_IMWRITE_JPEG_QUALITY);
