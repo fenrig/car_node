@@ -88,10 +88,11 @@ offsets FindLine::FindOffset(int teller, QString instructie, QString nextInstr)
 {
     offsets offset;
     Mat img;
+    Mat preimg;
 
-    qDebug() << "Camera Read(): " << cam->read(img);
+    qDebug() << "Camera Read(): " << cam->read(preimg);
     //Mat img = Mat(*data);
-    // - img = imdecode(img, 1);
+    Mat img = imdecode(img, 1);
     //read img from path
     //img = FindLine::ReadImage();
 
