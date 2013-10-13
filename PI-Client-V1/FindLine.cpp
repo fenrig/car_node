@@ -292,7 +292,7 @@ offsets FindLine::FindOffset(int teller, QString instructie, QString nextInstr)
                 qDebug("rood");
                 img = RedFilter(img);
                 offset = searchOffset(img);
-                if(offset.left==250 && offset.right==250)
+                if(offset.lefFindOffsett==250 && offset.right==250)
                 {
                     rood=false;
                     blauw=true;

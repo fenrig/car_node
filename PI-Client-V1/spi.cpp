@@ -51,6 +51,8 @@ void SPI::send(unsigned char *msg, int size, int channel){
     tr.bits_per_word = spiBPW;
     if((ioctl(dev, SPI_IOC_MESSAGE(1), &tr)) < 1)
         printf("Failed sending\n");
+    else
+        printf("send!\n");
 }
 
 void SPI::dumpstat(int channel){
